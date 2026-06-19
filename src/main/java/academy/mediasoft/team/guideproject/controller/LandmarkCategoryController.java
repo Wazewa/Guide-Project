@@ -3,6 +3,7 @@ package academy.mediasoft.team.guideproject.controller;
 import academy.mediasoft.team.guideproject.dto.LandmarkCategoryDto;
 import academy.mediasoft.team.guideproject.repository.LandmarkCategoryRepository;
 import academy.mediasoft.team.guideproject.service.LandmarkCategoryService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class LandmarkCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<LandmarkCategoryDto> addCategory(@RequestBody LandmarkCategoryDto categoryDto) {
+    public ResponseEntity<LandmarkCategoryDto> addCategory(@RequestBody @Valid LandmarkCategoryDto categoryDto) {
 
         LandmarkCategoryDto createdCategory = categoryService.addCategory(categoryDto);
 
@@ -40,7 +41,7 @@ public class LandmarkCategoryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<LandmarkCategoryDto> updateCategory(@PathVariable Long id,
-                               @RequestBody LandmarkCategoryDto landmarkCategoryDto) {
+                               @RequestBody @Valid LandmarkCategoryDto landmarkCategoryDto) {
 
         LandmarkCategoryDto updatedCategory = categoryService.updateCategory(id, landmarkCategoryDto);
 

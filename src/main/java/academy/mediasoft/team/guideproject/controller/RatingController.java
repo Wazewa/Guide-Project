@@ -2,6 +2,7 @@ package academy.mediasoft.team.guideproject.controller;
 
 import academy.mediasoft.team.guideproject.dto.RatingDto;
 import academy.mediasoft.team.guideproject.service.RatingService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class RatingController {
     }
 
     @PostMapping
-    public ResponseEntity<RatingDto> addRating(@RequestBody RatingDto ratingDto) {
+    public ResponseEntity<RatingDto> addRating(@RequestBody @Valid RatingDto ratingDto) {
 
         RatingDto createdRating = ratingService.addRating(ratingDto);
 
@@ -39,7 +40,7 @@ public class RatingController {
 
     @PutMapping("/{id}")
     public ResponseEntity<RatingDto> updateRating(@PathVariable Long id,
-                                                   @RequestBody RatingDto ratingDto) {
+                                                   @RequestBody @Valid RatingDto ratingDto) {
 
         RatingDto updatedRating = ratingService.updateRating(id, ratingDto);
 

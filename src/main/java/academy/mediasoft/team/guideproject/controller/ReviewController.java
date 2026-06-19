@@ -2,6 +2,7 @@ package academy.mediasoft.team.guideproject.controller;
 
 import academy.mediasoft.team.guideproject.dto.ReviewDto;
 import academy.mediasoft.team.guideproject.service.ReviewService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ResponseEntity<ReviewDto> addReview(@RequestBody ReviewDto reviewDto) {
+    public ResponseEntity<ReviewDto> addReview(@RequestBody @Valid ReviewDto reviewDto) {
 
         ReviewDto createdReview = reviewService.addReview(reviewDto);
 
@@ -39,7 +40,7 @@ public class ReviewController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ReviewDto>  updateReview(@PathVariable Long id,
-                             @RequestBody ReviewDto reviewDto) {
+                             @RequestBody @Valid ReviewDto reviewDto) {
 
         ReviewDto updatedReview = reviewService.updateReview(id, reviewDto);
 

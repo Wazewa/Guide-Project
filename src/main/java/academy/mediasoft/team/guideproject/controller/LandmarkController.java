@@ -2,6 +2,7 @@ package academy.mediasoft.team.guideproject.controller;
 
 import academy.mediasoft.team.guideproject.dto.LandmarkDto;
 import academy.mediasoft.team.guideproject.service.LandmarkService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class LandmarkController {
     }
 
     @PostMapping
-    public ResponseEntity<LandmarkDto> addLandmark(@RequestBody LandmarkDto landmarkDto) {
+    public ResponseEntity<LandmarkDto> addLandmark(@RequestBody @Valid LandmarkDto landmarkDto) {
 
         LandmarkDto createdLandmark = landmarkService.addLandmark(landmarkDto);
 
@@ -39,7 +40,7 @@ public class LandmarkController {
 
     @PutMapping("/{id}")
     public ResponseEntity<LandmarkDto> updateLandmark(@PathVariable Long id,
-                               @RequestBody LandmarkDto landmarkDto) {
+                               @RequestBody @Valid LandmarkDto landmarkDto) {
 
         LandmarkDto updatedLandmark = landmarkService.updateLandmark(id, landmarkDto);
 
