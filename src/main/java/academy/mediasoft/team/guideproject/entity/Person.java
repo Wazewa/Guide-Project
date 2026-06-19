@@ -3,6 +3,8 @@ package academy.mediasoft.team.guideproject.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "person")
 @Builder
@@ -27,4 +29,7 @@ public class Person {
 
     @Column(unique = true, nullable = false)
     private String email;
+
+    @OneToMany(mappedBy = "person")
+    private List<Review> reviews;
 }

@@ -3,6 +3,8 @@ package academy.mediasoft.team.guideproject.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Landmark")
 @Builder
@@ -31,4 +33,7 @@ public class Landmark {
     @ManyToOne
     @JoinColumn(name = "landmark_category_id")
     private LandmarkCategory category;
+
+    @OneToMany(mappedBy = "landmark")
+    private List<Review> reviews;
 }
