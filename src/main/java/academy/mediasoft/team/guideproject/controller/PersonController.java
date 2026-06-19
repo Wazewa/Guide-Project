@@ -11,7 +11,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/persons")
 public class PersonController {
+
     private final PersonRepository personRepository;
+
     @Autowired
     public PersonController(PersonRepository personRepository) {
         this.personRepository = personRepository;
@@ -20,10 +22,12 @@ public class PersonController {
     public List<Person> getAllPersons() {
         return personRepository.findAll();
     }
+
     @GetMapping("/{id}")
     public Person getPersonById(@PathVariable Long id) {
         return personRepository.findById(id).orElse(null);
     }
+
     @PostMapping
     public void addPerson(@RequestBody PersonDto personDto) {
         Person person = Person.builder().
@@ -34,6 +38,7 @@ public class PersonController {
                 build();
         personRepository.save(person);
     }
+
     @PutMapping("/{id}")
     public void updatePerson(@PathVariable Long id, @RequestBody PersonDto personDto) {
         Person person = Person.builder().
@@ -47,6 +52,7 @@ public class PersonController {
             personRepository.save(person);
         }
     }
+
     @DeleteMapping("/{id}")
     public void deletePerson(@PathVariable Long id) {
         personRepository.deleteById(id);
