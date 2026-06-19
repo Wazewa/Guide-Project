@@ -1,11 +1,10 @@
 package academy.mediasoft.team.guideproject.controller;
 
 import academy.mediasoft.team.guideproject.dto.LandmarkDto;
-import academy.mediasoft.team.guideproject.entity.Landmark;
-import academy.mediasoft.team.guideproject.entity.LandmarkCategory;
-import academy.mediasoft.team.guideproject.repository.LandmarkCategoryRepository;
-import academy.mediasoft.team.guideproject.repository.LandmarkRepository;
+import academy.mediasoft.team.guideproject.service.LandmarkService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,58 +14,44 @@ import java.util.List;
 @AllArgsConstructor
 public class LandmarkController {
 
-    private final LandmarkRepository landmarkRepository;
-    private final LandmarkCategoryRepository categoryRepository;
+    private final LandmarkService landmarkService;
 
     @GetMapping
-    public List<Landmark> getAllLandmarks() {
-        return landmarkRepository.findAll();
+    public List<LandmarkDto> getAllLandmarks() {
+        return landmarkService.getAllLandmarks();
     }
 
     @GetMapping("/{id}")
-    public Landmark getLandmarkById(@PathVariable Long id) {
-        return landmarkRepository.findById(id).orElse(null);
+    public ResponseEntity<LandmarkDto> getLandmarkById(@PathVariable Long id) {
+
+        LandmarkDto landmarkDto = landmarkService.getLandmarkById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(landmarkDto);
     }
 
     @PostMapping
-    public void addLandmark(@RequestBody LandmarkDto landmarkDto) {
-        LandmarkCategory category = categoryRepository.findById(landmarkDto.landmarkCategoryId())
-                .orElse(null);
+    public ResponseEntity<LandmarkDto> addLandmark(@RequestBody LandmarkDto landmarkDto) {
 
-        Landmark landmark = Landmark.builder().
-                name(landmarkDto.name()).
-                coordinates(landmarkDto.coordinates()).
-                description(landmarkDto.description()).
-                address(landmarkDto.address()).
-                category(category).
-                build();
-        landmarkRepository.save(landmark);
+        LandmarkDto createdLandmark = landmarkService.addLandmark(landmarkDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdLandmark);
     }
 
     @PutMapping("/{id}")
-    public void updateLandmark(@PathVariable Long id,
+    public ResponseEntity<LandmarkDto> updateLandmark(@PathVariable Long id,
                                @RequestBody LandmarkDto landmarkDto) {
-        LandmarkCategory category = categoryRepository.findById(landmarkDto.landmarkCategoryId())
-                .orElse(null);
 
-        Landmark landmark = Landmark.builder().
-                id(id).
-                name(landmarkDto.name()).
-                coordinates(landmarkDto.coordinates()).
-                description(landmarkDto.description()).
-                address(landmarkDto.address()).
-                category(category).
-                build();
-        if (landmarkRepository.existsById(id)) {
-            landmarkRepository.save(landmark);
-        }
+        LandmarkDto updatedLandmark = landmarkService.updateLandmark(id, landmarkDto);
+
+        return ResponseEntity.status(HttpStatus.OK).body(updatedLandmark);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteLandmark(@PathVariable Long id) {
-        if (landmarkRepository.existsById(id)) {
-            landmarkRepository.deleteById(id);
-        }
+    public ResponseEntity<Void> deleteLandmark(@PathVariable Long id) {
+
+        landmarkService.deleteLandmark(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
 

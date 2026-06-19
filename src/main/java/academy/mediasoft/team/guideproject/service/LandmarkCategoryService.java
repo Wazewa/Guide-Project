@@ -33,7 +33,7 @@ public class LandmarkCategoryService {
 
     public LandmarkCategoryDto updateCategory(Long id, LandmarkCategoryDto categoryDto) {
 
-        LandmarkCategory existingCategory = categoryRepository.findById(id).orElseThrow(() ->
+        categoryRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Категория не найдена!"));
 
         LandmarkCategory category = LandmarkCategory.builder()
