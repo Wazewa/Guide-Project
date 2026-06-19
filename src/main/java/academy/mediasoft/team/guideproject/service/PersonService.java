@@ -53,9 +53,10 @@ public class PersonService {
     }
 
     public void deletePerson(Long id) {
-        if(personRepository.existsById(id)) {
-            personRepository.deleteById(id);
+        if(!personRepository.existsById(id)) {
+            throw new RuntimeException("Пользователь не найден!");
         }
+        personRepository.deleteById(id);
     }
 
 
