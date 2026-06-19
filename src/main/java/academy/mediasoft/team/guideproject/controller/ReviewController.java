@@ -48,7 +48,8 @@ public class ReviewController {
     }
 
     @PutMapping("/{id}")
-    public void updateReview(@PathVariable Long id, @RequestBody ReviewDto reviewDto) {
+    public void updateReview(@PathVariable Long id,
+                             @RequestBody ReviewDto reviewDto) {
         Person person = personRepository.findById(reviewDto.personId())
                 .orElse(null);
         Landmark landmark = landmarkRepository.findById(reviewDto.landmarkId())

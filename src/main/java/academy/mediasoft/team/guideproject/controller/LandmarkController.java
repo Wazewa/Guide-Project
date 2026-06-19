@@ -44,7 +44,8 @@ public class LandmarkController {
     }
 
     @PutMapping("/{id}")
-    public void updateLandmark(@PathVariable Long id, @RequestBody LandmarkDto landmarkDto) {
+    public void updateLandmark(@PathVariable Long id,
+                               @RequestBody LandmarkDto landmarkDto) {
         LandmarkCategory category = categoryRepository.findById(landmarkDto.landmarkCategoryId())
                 .orElse(null);
 

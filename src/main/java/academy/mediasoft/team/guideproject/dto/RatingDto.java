@@ -2,11 +2,10 @@ package academy.mediasoft.team.guideproject.dto;
 
 import java.time.LocalDateTime;
 
-public record ReviewDto(
+public record RatingDto(
         Long id,
-        String reviewText,
+        Double grade,
         LocalDateTime createdAt,
-        LocalDateTime updatedAt,
         Long personId,
         Long landmarkId
 ) { }

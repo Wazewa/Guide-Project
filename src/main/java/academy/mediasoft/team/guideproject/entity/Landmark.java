@@ -36,4 +36,7 @@ public class Landmark {
 
     @OneToMany(mappedBy = "landmark")
     private List<Review> reviews;
+
+    @OneToMany(mappedBy = "landmark")
+    private List<Rating> ratings;
 }

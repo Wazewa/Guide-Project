@@ -40,7 +40,8 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public void updatePerson(@PathVariable Long id, @RequestBody PersonDto personDto) {
+    public void updatePerson(@PathVariable Long id,
+                             @RequestBody PersonDto personDto) {
         Person person = Person.builder().
                 id(id).
                 name(personDto.name()).

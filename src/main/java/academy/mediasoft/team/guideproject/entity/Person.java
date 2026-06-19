@@ -32,4 +32,7 @@ public class Person {
 
     @OneToMany(mappedBy = "person")
     private List<Review> reviews;
+
+    @OneToMany(mappedBy = "person")
+    private List<Rating> ratings;
 }

@@ -34,7 +34,8 @@ public class LandmarkCategoryController {
     }
 
     @PutMapping("/{id}")
-    public void updateCategory(@PathVariable Long id, @RequestBody LandmarkCategoryDto landmarkCategoryDto) {
+    public void updateCategory(@PathVariable Long id,
+                               @RequestBody LandmarkCategoryDto landmarkCategoryDto) {
         LandmarkCategory landmarkCategory = LandmarkCategory.builder().
                 id(id).
                 name(landmarkCategoryDto.name()).
