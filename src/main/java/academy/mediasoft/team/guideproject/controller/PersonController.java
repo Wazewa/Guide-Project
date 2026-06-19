@@ -1,61 +1,56 @@
 package academy.mediasoft.team.guideproject.controller;
 
 import academy.mediasoft.team.guideproject.dto.PersonDto;
-import academy.mediasoft.team.guideproject.entity.Person;
-import academy.mediasoft.team.guideproject.repository.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import academy.mediasoft.team.guideproject.service.PersonService;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/persons")
+@AllArgsConstructor
 public class PersonController {
 
-    private final PersonRepository personRepository;
+    private final PersonService personService;
 
-    @Autowired
-    public PersonController(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
     @GetMapping
-    public List<Person> getAllPersons() {
-        return personRepository.findAll();
+    public List<PersonDto> getAllPersons() {
+        return personService.getAllPersons();
     }
 
     @GetMapping("/{id}")
-    public Person getPersonById(@PathVariable Long id) {
-        return personRepository.findById(id).orElse(null);
+    public ResponseEntity<PersonDto> getPersonById(@PathVariable Long id) {
+
+        PersonDto personDto = personService.getPersonById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(personDto);
     }
 
     @PostMapping
-    public void addPerson(@RequestBody PersonDto personDto) {
-        Person person = Person.builder().
-                name(personDto.name()).
-                surname(personDto.surname()).
-                email(personDto.email()).
-                hashPassword("123456").
-                build();
-        personRepository.save(person);
+    public ResponseEntity<PersonDto> addPerson(@RequestBody @Valid PersonDto personDto) {
+
+        PersonDto createdPerson = personService.addPerson(personDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdPerson);
     }
 
     @PutMapping("/{id}")
-    public void updatePerson(@PathVariable Long id,
-                             @RequestBody PersonDto personDto) {
-        Person person = Person.builder().
-                id(id).
-                name(personDto.name()).
-                surname(personDto.surname()).
-                email(personDto.email()).
-                hashPassword("123456").
-                build();
-        if(personRepository.existsById(id)) {
-            personRepository.save(person);
-        }
+    public ResponseEntity<PersonDto> updatePerson(@PathVariable Long id,
+                             @RequestBody @Valid PersonDto personDto) {
+
+        PersonDto updatedPerson = personService.updatePerson(id, personDto);
+
+        return ResponseEntity.status(HttpStatus.OK).body(updatedPerson);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePerson(@PathVariable Long id) {
-        personRepository.deleteById(id);
+    public ResponseEntity<Void> deletePerson(@PathVariable Long id) {
+        personService.deletePerson(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
