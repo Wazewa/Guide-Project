@@ -1,13 +1,10 @@
 package academy.mediasoft.team.guideproject.controller;
 
 import academy.mediasoft.team.guideproject.dto.ReviewDto;
-import academy.mediasoft.team.guideproject.entity.Landmark;
-import academy.mediasoft.team.guideproject.entity.Person;
-import academy.mediasoft.team.guideproject.entity.Review;
-import academy.mediasoft.team.guideproject.repository.LandmarkRepository;
-import academy.mediasoft.team.guideproject.repository.PersonRepository;
-import academy.mediasoft.team.guideproject.repository.ReviewRepository;
+import academy.mediasoft.team.guideproject.service.ReviewService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,60 +14,43 @@ import java.util.List;
 @RequestMapping("/reviews")
 public class ReviewController {
 
-    private final ReviewRepository reviewRepository;
-    private final PersonRepository personRepository;
-    private final LandmarkRepository landmarkRepository;
+    private final ReviewService reviewService;
 
     @GetMapping
-    public List<Review> getAllReviews() {
-        return reviewRepository.findAll();
+    public List<ReviewDto> getAllReviews() {
+        return reviewService.getAllReviews();
     }
 
     @GetMapping("/{id}")
-    public Review getReviewById(@PathVariable Long id) {
-        return reviewRepository.findById(id).orElse(null);
+    public ResponseEntity<ReviewDto> getReviewById(@PathVariable Long id) {
+
+        ReviewDto reviewDto = reviewService.getReviewById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(reviewDto);
     }
 
     @PostMapping
-    public void addReview(@RequestBody ReviewDto reviewDto) {
-        Person person = personRepository.findById(reviewDto.personId())
-                .orElse(null);
-        Landmark landmark = landmarkRepository.findById(reviewDto.landmarkId())
-                .orElse(null);
+    public ResponseEntity<ReviewDto> addReview(@RequestBody ReviewDto reviewDto) {
 
-        Review review = Review.builder().
-                reviewText(reviewDto.reviewText()).
-                person(person).
-                landmark(landmark).
-                build();
+        ReviewDto createdReview = reviewService.addReview(reviewDto);
 
-        reviewRepository.save(review);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdReview);
     }
 
     @PutMapping("/{id}")
-    public void updateReview(@PathVariable Long id,
+    public ResponseEntity<ReviewDto>  updateReview(@PathVariable Long id,
                              @RequestBody ReviewDto reviewDto) {
-        Person person = personRepository.findById(reviewDto.personId())
-                .orElse(null);
-        Landmark landmark = landmarkRepository.findById(reviewDto.landmarkId())
-                .orElse(null);
 
-        Review review = Review.builder().
-                id(id).
-                reviewText(reviewDto.reviewText()).
-                person(person).
-                landmark(landmark).
-                build();
+        ReviewDto updatedReview = reviewService.updateReview(id, reviewDto);
 
-        if(reviewRepository.existsById(id)) {
-            reviewRepository.save(review);
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(updatedReview);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteReview(@PathVariable Long id) {
-        if(reviewRepository.existsById(id)) {
-            reviewRepository.deleteById(id);
-        }
+    public ResponseEntity<Void> deleteReview(@PathVariable Long id) {
+
+        reviewService.deleteReview(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

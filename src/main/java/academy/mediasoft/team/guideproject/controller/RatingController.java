@@ -1,76 +1,56 @@
 package academy.mediasoft.team.guideproject.controller;
 
 import academy.mediasoft.team.guideproject.dto.RatingDto;
-import academy.mediasoft.team.guideproject.entity.Landmark;
-import academy.mediasoft.team.guideproject.entity.Person;
-import academy.mediasoft.team.guideproject.entity.Rating;
-import academy.mediasoft.team.guideproject.repository.LandmarkRepository;
-import academy.mediasoft.team.guideproject.repository.PersonRepository;
-import academy.mediasoft.team.guideproject.repository.RatingRepository;
+import academy.mediasoft.team.guideproject.service.RatingService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/ratings")
 @AllArgsConstructor
+@RequestMapping("/ratings")
 public class RatingController {
 
-    private final RatingRepository ratingRepository;
-    private final PersonRepository personRepository;
-    private final LandmarkRepository landmarkRepository;
+    private final RatingService ratingService;
 
     @GetMapping
-    public List<Rating> getAllRatings() {
-        return ratingRepository.findAll();
+    public List<RatingDto> getAllRatings() {
+        return ratingService.getAllRatings();
     }
 
     @GetMapping("/{id}")
-    public Rating getRatingById(@PathVariable Long id) {
-        return ratingRepository.findById(id).orElse(null);
+    public ResponseEntity<RatingDto> getRatingById(@PathVariable Long id) {
+
+        RatingDto ratingDto = ratingService.getRatingById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(ratingDto);
     }
 
     @PostMapping
-    public void addRating(@RequestBody RatingDto ratingDto) {
-        Landmark landmark = landmarkRepository.findById(ratingDto.landmarkId()).
-                orElse(null);
-        Person person = personRepository.findById(ratingDto.personId()).
-                orElse(null);
+    public ResponseEntity<RatingDto> addRating(@RequestBody RatingDto ratingDto) {
 
-        Rating rating = Rating.builder().
-                grade(ratingDto.grade()).
-                landmark(landmark).
-                person(person).
-                build();
+        RatingDto createdRating = ratingService.addRating(ratingDto);
 
-        ratingRepository.save(rating);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdRating);
     }
 
     @PutMapping("/{id}")
-    public void updateRating(@PathVariable Long id,
-                             @RequestBody RatingDto ratingDto) {
-        Landmark landmark = landmarkRepository.findById(ratingDto.landmarkId()).
-                orElse(null);
-        Person person = personRepository.findById(ratingDto.personId()).
-                orElse(null);
+    public ResponseEntity<RatingDto> updateRating(@PathVariable Long id,
+                                                   @RequestBody RatingDto ratingDto) {
 
-        Rating rating = Rating.builder().
-                id(id).
-                grade(ratingDto.grade()).
-                landmark(landmark).
-                person(person).
-                build();
+        RatingDto updatedRating = ratingService.updateRating(id, ratingDto);
 
-        if(ratingRepository.existsById(id)) {
-            ratingRepository.save(rating);
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(updatedRating);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRating(@PathVariable Long id) {
-        if(ratingRepository.existsById(id)) {
-            ratingRepository.deleteById(id);
-        }
+    public ResponseEntity<Void> deleteRating(@PathVariable Long id) {
+
+        ratingService.deleteRating(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
