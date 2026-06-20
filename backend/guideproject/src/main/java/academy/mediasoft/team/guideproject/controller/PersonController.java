@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/persons")
+@RequestMapping("api/persons")
 @AllArgsConstructor
 public class PersonController {
 
