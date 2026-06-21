@@ -82,6 +82,10 @@ public class RatingService {
         ratingRepository.deleteById(id);
     }
 
+    public Double getAverageRatingForLandmark(Long id) {
+        return ratingRepository.getAverageRatingById(id);
+    }
+
     private RatingDto toDto(Rating rating) {
         return new RatingDto(
                 rating.getId(),

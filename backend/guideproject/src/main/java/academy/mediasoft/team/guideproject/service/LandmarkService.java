@@ -6,6 +6,7 @@ import academy.mediasoft.team.guideproject.entity.LandmarkCategory;
 import academy.mediasoft.team.guideproject.repository.LandmarkCategoryRepository;
 import academy.mediasoft.team.guideproject.repository.LandmarkRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class LandmarkService {
 
     private final LandmarkRepository landmarkRepository;
     private final LandmarkCategoryRepository landmarkCategoryRepository;
+    private final RatingService ratingService;
 
     public List<LandmarkDto> getAllLandmarks() {
 
@@ -26,8 +28,13 @@ public class LandmarkService {
 
     public LandmarkDto getLandmarkById(Long id) {
 
-        return toDto(landmarkRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("Достопримечательность не найдена!")));
+        Double averageRating = ratingService.getAverageRatingForLandmark(id);
+
+        Landmark landmark = landmarkRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Достопримечательность не найдена!"));
+
+        return toDto(landmark, averageRating);
+
     }
 
     public LandmarkDto addLandmark(LandmarkDto landmarkDto) {
@@ -76,14 +83,19 @@ public class LandmarkService {
         landmarkRepository.deleteById(id);
     }
 
-    private LandmarkDto toDto(Landmark landmark) {
+    private LandmarkDto toDto(Landmark landmark, Double averageRating) {
         return new LandmarkDto(
                 landmark.getId(),
                 landmark.getName(),
                 landmark.getCoordinates(),
                 landmark.getDescription(),
                 landmark.getAddress(),
-                landmark.getCategory().getId()
+                landmark.getCategory().getId(),
+                averageRating
         );
+    }
+
+    private LandmarkDto toDto(Landmark landmark) {
+        return toDto(landmark, 0.0);
     }
 }

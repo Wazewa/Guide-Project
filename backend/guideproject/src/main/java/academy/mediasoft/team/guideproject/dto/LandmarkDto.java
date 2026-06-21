@@ -17,5 +17,6 @@ public record LandmarkDto(
     @NotBlank(message = "Поле адреса достопримечательности должно быть непустым")
     @Size(min = 2, max = 64)
     String address,
-    Long landmarkCategoryId
+    Long landmarkCategoryId,
+    Double averageRating
 ) {}
