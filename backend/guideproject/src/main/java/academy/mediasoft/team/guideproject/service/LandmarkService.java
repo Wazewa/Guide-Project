@@ -8,6 +8,7 @@ import academy.mediasoft.team.guideproject.repository.LandmarkRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.util.List;
 
 @Service
@@ -80,6 +81,13 @@ public class LandmarkService {
             throw new RuntimeException("Достопримечательность не найден!");
         }
         landmarkRepository.deleteById(id);
+    }
+
+    public List<LandmarkDto> getNearbyLandmarkOnRadiusAndLimit(Double latitude, Double longitude,
+                                                               Integer radius, Integer limit) {
+
+        List<Landmark> nearbyLandmarks = landmarkRepository.findNearbyLandmarkOnRadiusAndLimit(latitude, longitude, radius, limit);
+        return nearbyLandmarks.stream().map(this::toDto).toList();
     }
 
     private LandmarkDto toDto(Landmark landmark, Double averageRating) {

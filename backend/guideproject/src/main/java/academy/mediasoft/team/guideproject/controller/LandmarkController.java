@@ -54,5 +54,16 @@ public class LandmarkController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<LandmarkDto>> getNearbyLandmarkOnRadiusAndLimit(
+            @RequestParam Double latitude,
+            @RequestParam Double longitude,
+            @RequestParam(defaultValue = "5") Integer radius,
+            @RequestParam(defaultValue = "10") Integer limit
+    ) {
+        List<LandmarkDto> nearbyLandmarks = landmarkService.getNearbyLandmarkOnRadiusAndLimit(latitude, longitude, radius, limit);
+        return ResponseEntity.ok(nearbyLandmarks);
+    }
 }
 
