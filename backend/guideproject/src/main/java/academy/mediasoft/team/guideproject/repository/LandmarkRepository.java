@@ -11,8 +11,17 @@ import java.util.List;
 @Repository
 public interface LandmarkRepository extends JpaRepository<Landmark, Long> {
 
-    @Query(value = "SELECT * FROM Landmark LIMIT :limit", nativeQuery = true)
-    List<Landmark> findNearbyLandmarkOnRadiusAndLimit(@Param("latitude") Double latitude,
+    @Query(value = """
+                    SELECT * FROM Landmark
+                      WHERE ST_DWithin(
+                            coordinates,
+                            ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326), :radius)
+                      ORDER BY ST_Distance(
+                            coordinates, 
+                            ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)) 
+                      LIMIT :limit
+                    """, nativeQuery = true)
+    List<Landmark> findNearbyLandmarkByRadiusAndLimit(@Param("latitude") Double latitude,
                                                       @Param("longitude")Double longitude,
                                                       @Param("radius") Integer radius,
                                                       @Param("limit") Integer limit);

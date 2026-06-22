@@ -86,7 +86,7 @@ public class LandmarkService {
     public List<LandmarkDto> getNearbyLandmarkOnRadiusAndLimit(Double latitude, Double longitude,
                                                                Integer radius, Integer limit) {
 
-        List<Landmark> nearbyLandmarks = landmarkRepository.findNearbyLandmarkOnRadiusAndLimit(latitude, longitude, radius, limit);
+        List<Landmark> nearbyLandmarks = landmarkRepository.findNearbyLandmarkByRadiusAndLimit(latitude, longitude, radius, limit);
         return nearbyLandmarks.stream().map(this::toDto).toList();
     }
 
