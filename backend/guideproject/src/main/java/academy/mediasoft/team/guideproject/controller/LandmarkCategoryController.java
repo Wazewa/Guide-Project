@@ -1,7 +1,6 @@
 package academy.mediasoft.team.guideproject.controller;
 
 import academy.mediasoft.team.guideproject.dto.LandmarkCategoryDto;
-import academy.mediasoft.team.guideproject.repository.LandmarkCategoryRepository;
 import academy.mediasoft.team.guideproject.service.LandmarkCategoryService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

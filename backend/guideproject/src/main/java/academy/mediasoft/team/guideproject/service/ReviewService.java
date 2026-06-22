@@ -6,7 +6,6 @@ import academy.mediasoft.team.guideproject.entity.Person;
 import academy.mediasoft.team.guideproject.entity.Review;
 import academy.mediasoft.team.guideproject.repository.LandmarkRepository;
 import academy.mediasoft.team.guideproject.repository.PersonRepository;
-import academy.mediasoft.team.guideproject.repository.RatingRepository;
 import academy.mediasoft.team.guideproject.repository.ReviewRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -89,8 +88,8 @@ public class ReviewService {
           review.getReviewText(),
           review.getCreatedAt(),
           review.getUpdatedAt(),
-          review.getLandmark().getId(),
-          review.getPerson().getId()
+          review.getPerson().getId(),
+          review.getLandmark().getId()
         );
     }
 }

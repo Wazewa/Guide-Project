@@ -6,7 +6,6 @@ import academy.mediasoft.team.guideproject.entity.LandmarkCategory;
 import academy.mediasoft.team.guideproject.repository.LandmarkCategoryRepository;
 import academy.mediasoft.team.guideproject.repository.LandmarkRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
