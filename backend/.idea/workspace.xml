@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="0db70a2c-e450-410f-9553-7bee6919ce8f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/controller/LandmarkController.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/controller/LandmarkController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/repository/LandmarkRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/repository/LandmarkRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/LandmarkCategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/LandmarkCategoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/LandmarkService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/LandmarkService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/PersonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/PersonService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/RatingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/RatingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/ReviewService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,6 +89,9 @@
       <workItem from="1782137222323" duration="2602000" />
       <workItem from="1782141176883" duration="2191000" />
       <workItem from="1782143437596" duration="49000" />
+      <workItem from="1782143795826" duration="363000" />
+      <workItem from="1782208735294" duration="17000" />
+      <workItem from="1782315974434" duration="557000" />
     </task>
     <servers />
   </component>

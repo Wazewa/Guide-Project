@@ -5,6 +5,7 @@ import academy.mediasoft.team.guideproject.entity.Person;
 import academy.mediasoft.team.guideproject.repository.PersonRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,17 +15,20 @@ public class PersonService {
 
     private final PersonRepository personRepository;
 
+    @Transactional(readOnly = true)
     public List<PersonDto> getAllPersons() {
         return personRepository.findAll().stream()
                 .map(this::toDto)
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public PersonDto getPersonById(Long id) {
         return toDto(personRepository.findById(id).orElseThrow(()
                 -> new RuntimeException("Пользователь не найден!")));
     }
 
+    @Transactional
     public PersonDto addPerson(PersonDto personDto) {
         Person person = Person.builder().
                 name(personDto.name()).
@@ -37,6 +41,7 @@ public class PersonService {
         return toDto(createdPerson);
     }
 
+    @Transactional
     public PersonDto updatePerson(Long id, PersonDto personDto) {
         Person existingPerson = personRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Пользователь не найден!"));
@@ -52,6 +57,7 @@ public class PersonService {
         return toDto(personRepository.save(person));
     }
 
+    @Transactional
     public void deletePerson(Long id) {
         if(!personRepository.existsById(id)) {
             throw new RuntimeException("Пользователь не найден!");

@@ -7,6 +7,7 @@ import academy.mediasoft.team.guideproject.repository.LandmarkCategoryRepository
 import academy.mediasoft.team.guideproject.repository.LandmarkRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.*;
 import java.util.List;
@@ -19,6 +20,7 @@ public class LandmarkService {
     private final LandmarkCategoryRepository landmarkCategoryRepository;
     private final RatingService ratingService;
 
+    @Transactional(readOnly = true)
     public List<LandmarkDto> getAllLandmarks() {
 
         return landmarkRepository.findAll().stream()
@@ -26,6 +28,7 @@ public class LandmarkService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public LandmarkDto getLandmarkById(Long id) {
 
         Double averageRating = ratingService.getAverageRatingForLandmark(id);
@@ -37,6 +40,7 @@ public class LandmarkService {
 
     }
 
+    @Transactional
     public LandmarkDto addLandmark(LandmarkDto landmarkDto) {
 
         LandmarkCategory category = landmarkCategoryRepository.findById(landmarkDto.landmarkCategoryId())
@@ -55,6 +59,7 @@ public class LandmarkService {
         return toDto(createdLandmark);
     }
 
+    @Transactional
     public LandmarkDto updateLandmark(Long id, LandmarkDto landmarkDto) {
         landmarkRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Достопримечательность не найден!"));
@@ -76,6 +81,7 @@ public class LandmarkService {
         return toDto(updatedLandmark);
     }
 
+    @Transactional
     public void deleteLandmark(Long id) {
         if(!landmarkRepository.existsById(id)){
             throw new RuntimeException("Достопримечательность не найден!");
@@ -83,6 +89,7 @@ public class LandmarkService {
         landmarkRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public List<LandmarkDto> getNearbyLandmarkOnRadiusAndLimit(Double latitude, Double longitude,
                                                                Integer radius, Integer limit) {
 

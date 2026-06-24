@@ -9,6 +9,7 @@ import academy.mediasoft.team.guideproject.repository.PersonRepository;
 import academy.mediasoft.team.guideproject.repository.ReviewRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,17 +21,20 @@ public class ReviewService {
     private final PersonRepository personRepository;
     private final LandmarkRepository landmarkRepository;
 
+    @Transactional(readOnly = true)
     public List<ReviewDto> getAllReviews() {
         return reviewRepository.findAll().stream()
                 .map(this::toDto)
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public ReviewDto getReviewById(Long id) {
         return toDto(reviewRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Отзыв не существует!")));
     }
 
+    @Transactional
     public ReviewDto addReview(ReviewDto reviewDto) {
 
         Person person = personRepository.findById(reviewDto.personId()).orElseThrow(
@@ -50,6 +54,7 @@ public class ReviewService {
         return toDto(reviewRepository.save(review));
     }
 
+    @Transactional
     public ReviewDto updateReview(Long id, ReviewDto reviewDto) {
 
         Review existingReview = reviewRepository.findById(id).orElseThrow(
@@ -75,6 +80,7 @@ public class ReviewService {
         return toDto(reviewRepository.save(review));
     }
 
+    @Transactional
     public void deleteReview(Long id) {
         if(!reviewRepository.existsById(id)) {
             throw new RuntimeException("Отзыв не найден!");

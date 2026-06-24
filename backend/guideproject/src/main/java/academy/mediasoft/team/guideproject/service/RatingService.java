@@ -9,6 +9,7 @@ import academy.mediasoft.team.guideproject.repository.PersonRepository;
 import academy.mediasoft.team.guideproject.repository.RatingRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,17 +21,20 @@ public class RatingService {
     private final PersonRepository personRepository;
     private final LandmarkRepository landmarkRepository;
 
+    @Transactional(readOnly = true)
     public List<RatingDto> getAllRatings() {
         return ratingRepository.findAll().stream()
                 .map(this::toDto)
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public RatingDto getRatingById(Long id) {
         return toDto(ratingRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Оценка не найдена!")));
     }
 
+    @Transactional
     public RatingDto addRating(RatingDto ratingDto) {
 
         Person person = personRepository.findById(ratingDto.personId()).orElseThrow(
@@ -50,6 +54,7 @@ public class RatingService {
         return toDto(ratingRepository.save(rating));
     }
 
+    @Transactional
     public RatingDto updateRating(Long id, RatingDto ratingDto) {
 
         Rating existingRating = ratingRepository.findById(id).orElseThrow(
@@ -75,6 +80,7 @@ public class RatingService {
         return toDto(ratingRepository.save(rating));
     }
 
+    @Transactional
     public void deleteRating(Long id) {
         if(!ratingRepository.existsById(id)) {
             throw new RuntimeException("Оценка не найдена!");
@@ -82,6 +88,7 @@ public class RatingService {
         ratingRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public Double getAverageRatingForLandmark(Long id) {
         return ratingRepository.getAverageRatingById(id);
     }
