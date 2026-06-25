@@ -12,6 +12,5 @@ public record ReviewDto(
         String reviewText,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
-        Long personId,
         Long landmarkId
 ) { }

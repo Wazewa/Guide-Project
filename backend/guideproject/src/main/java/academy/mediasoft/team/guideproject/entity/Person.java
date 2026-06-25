@@ -1,10 +1,10 @@
 package academy.mediasoft.team.guideproject.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -32,6 +32,9 @@ public class Person {
 
     @Column(unique = true)
     private String email;
+
+    @Column(nullable = false)
+    private String role;
 
     @OneToMany(mappedBy = "person")
     private List<Review> reviews;

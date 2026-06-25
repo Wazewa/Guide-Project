@@ -1,6 +1,7 @@
 package academy.mediasoft.team.guideproject.controller;
 
 import academy.mediasoft.team.guideproject.dto.PersonDto;
+import academy.mediasoft.team.guideproject.dto.RegisterDto;
 import academy.mediasoft.team.guideproject.service.PersonService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -30,10 +31,10 @@ public class PersonController {
         return ResponseEntity.status(HttpStatus.OK).body(personDto);
     }
 
-    @PostMapping
-    public ResponseEntity<PersonDto> addPerson(@RequestBody @Valid PersonDto personDto) {
+    @PostMapping("/register")
+    public ResponseEntity<PersonDto> addPerson(@RequestBody @Valid RegisterDto registerDto) {
 
-        PersonDto createdPerson = personService.addPerson(personDto);
+        PersonDto createdPerson = personService.addPerson(registerDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPerson);
     }

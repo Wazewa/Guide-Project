@@ -6,16 +6,35 @@
   <component name="ChangeListManager">
     <list default="true" id="0db70a2c-e450-410f-9553-7bee6919ce8f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/LandmarkCategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/LandmarkCategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/controller/PersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/controller/PersonController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/dto/RatingDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/dto/RatingDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/dto/ReviewDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/dto/ReviewDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/entity/Landmark.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/entity/Landmark.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/entity/LandmarkCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/entity/LandmarkCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/entity/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/entity/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/entity/Rating.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/entity/Rating.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/entity/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/entity/Review.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/repository/PersonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/repository/PersonRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/repository/RatingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/repository/RatingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/repository/ReviewRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/repository/ReviewRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/LandmarkService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/LandmarkService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/PersonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/PersonService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/RatingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/RatingService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/ReviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -92,6 +111,10 @@
       <workItem from="1782143795826" duration="363000" />
       <workItem from="1782208735294" duration="17000" />
       <workItem from="1782315974434" duration="557000" />
+      <workItem from="1782319905440" duration="1232000" />
+      <workItem from="1782321197624" duration="3267000" />
+      <workItem from="1782375886531" duration="2134000" />
+      <workItem from="1782393726675" duration="7813000" />
     </task>
     <servers />
   </component>

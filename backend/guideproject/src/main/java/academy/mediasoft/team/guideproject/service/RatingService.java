@@ -4,10 +4,13 @@ import academy.mediasoft.team.guideproject.dto.RatingDto;
 import academy.mediasoft.team.guideproject.entity.Landmark;
 import academy.mediasoft.team.guideproject.entity.Person;
 import academy.mediasoft.team.guideproject.entity.Rating;
+import academy.mediasoft.team.guideproject.entity.Review;
 import academy.mediasoft.team.guideproject.repository.LandmarkRepository;
 import academy.mediasoft.team.guideproject.repository.PersonRepository;
 import academy.mediasoft.team.guideproject.repository.RatingRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,13 +40,15 @@ public class RatingService {
     @Transactional
     public RatingDto addRating(RatingDto ratingDto) {
 
-        Person person = personRepository.findById(ratingDto.personId()).orElseThrow(
-                () -> new RuntimeException("Пользователь не найден!")
-        );
+        Person person = getPersonFromContext();
 
         Landmark landmark = landmarkRepository.findById(ratingDto.landmarkId()).orElseThrow(
                 () -> new RuntimeException("Достопримечательность не найдена!")
         );
+
+        if(ratingRepository.existsByPersonIdAndLandmarkId(person.getId(), ratingDto.landmarkId())) {
+            throw new RuntimeException("Оценка уже есть!");
+        }
 
         Rating rating = Rating.builder().
                 grade(ratingDto.grade()).
@@ -61,13 +66,15 @@ public class RatingService {
                 () -> new RuntimeException("Оценка не найдена!")
         );
 
-        Person person = personRepository.findById(ratingDto.personId()).orElseThrow(
-                () -> new RuntimeException("Пользователь не найден!")
-        );
+        Person person = getPersonFromContext();
 
         Landmark landmark = landmarkRepository.findById(ratingDto.landmarkId()).orElseThrow(
                 () -> new RuntimeException("Достопримечательность не найдена!")
         );
+
+        if(!existingRating.getPerson().getId().equals(person.getId())) {
+            throw new RuntimeException("Оценка ставится лишь на свои отзывы!");
+        }
 
         Rating rating = Rating.builder().
                 id(id).
@@ -82,9 +89,15 @@ public class RatingService {
 
     @Transactional
     public void deleteRating(Long id) {
-        if(!ratingRepository.existsById(id)) {
-            throw new RuntimeException("Оценка не найдена!");
+        Rating rating = ratingRepository.findById(id).orElseThrow(()
+                -> new RuntimeException("Оценка не найдена!"));
+
+        Person person = getPersonFromContext();
+
+        if(!rating.getPerson().getId().equals(person.getId())) {
+            throw new RuntimeException("Удалять можно только свои оценки!");
         }
+
         ratingRepository.deleteById(id);
     }
 
@@ -98,8 +111,17 @@ public class RatingService {
                 rating.getId(),
                 rating.getGrade(),
                 rating.getCreatedAt(),
-                rating.getLandmark().getId(),
-                rating.getPerson().getId()
+                rating.getLandmark().getId()
+        );
+    }
+
+    private Person getPersonFromContext() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        String email = auth.getName();
+
+        return personRepository.findByEmail(email).orElseThrow(
+                () -> new RuntimeException("Пользователь не найден!")
         );
     }
 }

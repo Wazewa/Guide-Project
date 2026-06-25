@@ -1,9 +1,11 @@
 package academy.mediasoft.team.guideproject.service;
 
 import academy.mediasoft.team.guideproject.dto.PersonDto;
+import academy.mediasoft.team.guideproject.dto.RegisterDto;
 import academy.mediasoft.team.guideproject.entity.Person;
 import academy.mediasoft.team.guideproject.repository.PersonRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +16,7 @@ import java.util.List;
 public class PersonService {
 
     private final PersonRepository personRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     public List<PersonDto> getAllPersons() {
@@ -29,12 +32,13 @@ public class PersonService {
     }
 
     @Transactional
-    public PersonDto addPerson(PersonDto personDto) {
+    public PersonDto addPerson(RegisterDto registerDto) {
         Person person = Person.builder().
-                name(personDto.name()).
-                surname(personDto.surname()).
-                email(personDto.email()).
-                hashPassword("123456").
+                name(registerDto.name()).
+                surname(registerDto.surname()).
+                email(registerDto.email()).
+                hashPassword(passwordEncoder.encode(registerDto.password())).
+                role("USER").
                 build();
         Person createdPerson = personRepository.save(person);
 

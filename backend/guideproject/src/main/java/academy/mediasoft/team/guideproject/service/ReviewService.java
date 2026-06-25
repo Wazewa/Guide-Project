@@ -8,6 +8,8 @@ import academy.mediasoft.team.guideproject.repository.LandmarkRepository;
 import academy.mediasoft.team.guideproject.repository.PersonRepository;
 import academy.mediasoft.team.guideproject.repository.ReviewRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,13 +39,15 @@ public class ReviewService {
     @Transactional
     public ReviewDto addReview(ReviewDto reviewDto) {
 
-        Person person = personRepository.findById(reviewDto.personId()).orElseThrow(
-                () -> new RuntimeException("Пользователь не найден!")
-        );
+        Person person = getPersonFromContext();
 
         Landmark landmark = landmarkRepository.findById(reviewDto.landmarkId()).orElseThrow(
                 () -> new RuntimeException("Достопримечательность не найдена!")
         );
+
+        if(reviewRepository.existsByPersonIdAndLandmarkId(person.getId(), reviewDto.landmarkId())) {
+            throw new RuntimeException("Оценка уже есть!");
+        }
 
         Review review = Review.builder().
                 reviewText(reviewDto.reviewText()).
@@ -61,13 +65,15 @@ public class ReviewService {
                 () -> new RuntimeException("Отзыв не найден!")
         );
 
-        Person person = personRepository.findById(reviewDto.personId()).orElseThrow(
-                () -> new RuntimeException("Пользователь не найден!")
-        );
+        Person person = getPersonFromContext();
 
         Landmark landmark = landmarkRepository.findById(reviewDto.landmarkId()).orElseThrow(
                 () -> new RuntimeException("Достопримечательность не найдена!")
         );
+
+        if(!existingReview.getPerson().getId().equals(person.getId())) {
+            throw new RuntimeException("Нельзя написать отзыв от чужого имени!");
+        }
 
         Review review = Review.builder().
                 id(id).
@@ -82,9 +88,15 @@ public class ReviewService {
 
     @Transactional
     public void deleteReview(Long id) {
-        if(!reviewRepository.existsById(id)) {
-            throw new RuntimeException("Отзыв не найден!");
+        Review review = reviewRepository.findById(id).orElseThrow(()
+                    -> new RuntimeException("Отзыв не найден!"));
+
+        Person person = getPersonFromContext();
+
+        if(!review.getPerson().getId().equals(person.getId())) {
+            throw new RuntimeException("Удалять можно только свои отзывы");
         }
+
         reviewRepository.deleteById(id);
     }
 
@@ -94,8 +106,17 @@ public class ReviewService {
           review.getReviewText(),
           review.getCreatedAt(),
           review.getUpdatedAt(),
-          review.getPerson().getId(),
           review.getLandmark().getId()
+        );
+    }
+
+    private Person getPersonFromContext() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        String email = auth.getName();
+
+        return personRepository.findByEmail(email).orElseThrow(
+                () -> new RuntimeException("Пользователь не найден!")
         );
     }
 }
