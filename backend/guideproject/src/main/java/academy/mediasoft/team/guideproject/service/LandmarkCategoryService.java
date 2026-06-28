@@ -28,6 +28,10 @@ public class LandmarkCategoryService {
 
     @Transactional
     public LandmarkCategoryDto addCategory(LandmarkCategoryDto categoryDto) {
+        if(categoryRepository.existsByName(categoryDto.name())) {
+            throw new RuntimeException("Такая категория уже есть!");
+        }
+
         LandmarkCategory category = LandmarkCategory.builder()
                 .name(categoryDto.name())
                 .build();

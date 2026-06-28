@@ -81,7 +81,6 @@ public class PersonServiceTest {
 
     @Test
     public void updatePerson_validData_save() {
-
         Long personId = 15L;
         String password = "123456";
         String hashPassword = "$2a$10$superEncodedPassword123";
