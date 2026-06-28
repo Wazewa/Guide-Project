@@ -45,6 +45,10 @@ public class LandmarkService {
         LandmarkCategory category = landmarkCategoryRepository.findById(landmarkDto.landmarkCategoryId())
                 .orElseThrow(() -> new RuntimeException("Категория не найдена!"));
 
+        if(landmarkRepository.existsByName(landmarkDto.name())) {
+            throw new RuntimeException("Достопримечательность уже есть!");
+        }
+
         Landmark landmark = Landmark.builder().
                 name(landmarkDto.name()).
                 coordinates(landmarkDto.coordinates()).

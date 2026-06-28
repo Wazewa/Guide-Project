@@ -4,7 +4,6 @@ import academy.mediasoft.team.guideproject.dto.RatingDto;
 import academy.mediasoft.team.guideproject.entity.Landmark;
 import academy.mediasoft.team.guideproject.entity.Person;
 import academy.mediasoft.team.guideproject.entity.Rating;
-import academy.mediasoft.team.guideproject.entity.Review;
 import academy.mediasoft.team.guideproject.repository.LandmarkRepository;
 import academy.mediasoft.team.guideproject.repository.PersonRepository;
 import academy.mediasoft.team.guideproject.repository.RatingRepository;
