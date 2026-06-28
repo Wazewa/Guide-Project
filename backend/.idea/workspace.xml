@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0db70a2c-e450-410f-9553-7bee6919ce8f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/repository/LandmarkCategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/repository/LandmarkCategoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/LandmarkCategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/LandmarkCategoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/guideproject/src/test/java/academy/mediasoft/team/guideproject/service/PersonServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/test/java/academy/mediasoft/team/guideproject/service/PersonServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +54,8 @@
     "JUnit.LandmarkServiceTest.addLandmark_validData_save.executor": "Run",
     "JUnit.LandmarkServiceTest.executor": "Coverage",
     "JUnit.PersonServiceTest.executor": "Coverage",
+    "JUnit.RatingServiceTest.addRating_validData_save.executor": "Coverage",
+    "JUnit.RatingServiceTest.executor": "Coverage",
     "JUnit.guideproject in guideproject.executor": "Coverage",
     "JUnit.service in guideproject.executor": "Coverage",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -83,7 +83,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.service in guideproject">
+  <component name="RunManager" selected="JUnit.guideproject in guideproject">
     <configuration name="LandmarkCategoryServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="guideproject" />
       <extension name="coverage">
@@ -99,7 +99,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LandmarkCategoryServiceTest.addLandmarkCategory_validData_save" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RatingServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="guideproject" />
       <extension name="coverage">
         <pattern>
@@ -108,14 +108,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="academy.mediasoft.team.guideproject.service" />
-      <option name="MAIN_CLASS_NAME" value="academy.mediasoft.team.guideproject.service.LandmarkCategoryServiceTest" />
-      <option name="METHOD_NAME" value="addLandmarkCategory_validData_save" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="academy.mediasoft.team.guideproject.service.RatingServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LandmarkCategoryServiceTest.updateLandmarkCategory_validData_save" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RatingServiceTest.addRating_validData_save" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="guideproject" />
       <extension name="coverage">
         <pattern>
@@ -124,8 +123,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="academy.mediasoft.team.guideproject.service" />
-      <option name="MAIN_CLASS_NAME" value="academy.mediasoft.team.guideproject.service.LandmarkCategoryServiceTest" />
-      <option name="METHOD_NAME" value="updateLandmarkCategory_validData_save" />
+      <option name="MAIN_CLASS_NAME" value="academy.mediasoft.team.guideproject.service.RatingServiceTest" />
+      <option name="METHOD_NAME" value="addRating_validData_save" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -156,11 +155,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.guideproject in guideproject" />
+        <item itemvalue="JUnit.RatingServiceTest" />
+        <item itemvalue="JUnit.RatingServiceTest.addRating_validData_save" />
         <item itemvalue="JUnit.service in guideproject" />
         <item itemvalue="JUnit.LandmarkCategoryServiceTest" />
-        <item itemvalue="JUnit.LandmarkCategoryServiceTest.updateLandmarkCategory_validData_save" />
-        <item itemvalue="JUnit.LandmarkCategoryServiceTest.addLandmarkCategory_validData_save" />
-        <item itemvalue="JUnit.guideproject in guideproject" />
       </list>
     </recent_temporary>
   </component>
@@ -195,7 +194,7 @@
       <workItem from="1782631221944" duration="905000" />
       <workItem from="1782636209739" duration="644000" />
       <workItem from="1782640103593" duration="8900000" />
-      <workItem from="1782659517141" duration="5169000" />
+      <workItem from="1782659517141" duration="9143000" />
     </task>
     <servers />
   </component>
@@ -207,8 +206,14 @@
     <SUITE FILE_PATH="coverage/backend$LandmarkCategoryServiceTest.ic" NAME="LandmarkCategoryServiceTest Coverage Results" MODIFIED="1782664407111" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>academy.mediasoft.team.guideproject.service.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$service_in_guideproject.ic" NAME="service in guideproject Coverage Results" MODIFIED="1782664362251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/backend$RatingServiceTest.ic" NAME="RatingServiceTest Coverage Results" MODIFIED="1782668468394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>academy.mediasoft.team.guideproject.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$service_in_guideproject.ic" NAME="service in guideproject Coverage Results" MODIFIED="1782666498961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/backend$PersonServiceTest.ic" NAME="PersonServiceTest Coverage Results" MODIFIED="1782660980534" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>academy.mediasoft.team.guideproject.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$RatingServiceTest_addRating_validData_save.ic" NAME="RatingServiceTest.addRating_validData_save Coverage Results" MODIFIED="1782667118325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>academy.mediasoft.team.guideproject.service.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/backend$LandmarkServiceTest.ic" NAME="LandmarkServiceTest Coverage Results" MODIFIED="1782661005542" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">

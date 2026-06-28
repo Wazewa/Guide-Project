@@ -166,7 +166,7 @@ public class PersonServiceTest {
         return new RegisterDto(
                 "Иван",
                 "Королев",
-                "wazewa73@test.ru",
+                "wazewa@test.ru",
                 password,
                 "USER"
         );
