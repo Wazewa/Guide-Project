@@ -14,5 +14,7 @@ public record PersonDto (
     String surname,
     @Email
     @NotBlank(message = "Поле почты должно быть непустым")
-    String email
+    String email,
+    @NotBlank(message = "Поле роли должно быть непустым")
+    String role
 ) {}

@@ -33,6 +33,10 @@ public class PersonService {
 
     @Transactional
     public PersonDto addPerson(RegisterDto registerDto) {
+        if(personRepository.existsByEmail(registerDto.email())) {
+            throw new RuntimeException("Пользователь с такой почтой уже есть!");
+        }
+
         Person person = Person.builder().
                 name(registerDto.name()).
                 surname(registerDto.surname()).
@@ -75,7 +79,8 @@ public class PersonService {
                 person.getId(),
                 person.getName(),
                 person.getSurname(),
-                person.getEmail()
+                person.getEmail(),
+                person.getRole()
         );
     }
 }
