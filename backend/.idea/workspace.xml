@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0db70a2c-e450-410f-9553-7bee6919ce8f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guideproject/src/test/java/academy/mediasoft/team/guideproject/service/PersonServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/test/java/academy/mediasoft/team/guideproject/service/PersonServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,8 +55,9 @@
     "JUnit.PersonServiceTest.executor": "Coverage",
     "JUnit.RatingServiceTest.addRating_validData_save.executor": "Coverage",
     "JUnit.RatingServiceTest.executor": "Coverage",
-    "JUnit.guideproject in guideproject.executor": "Coverage",
-    "JUnit.service in guideproject.executor": "Coverage",
+    "JUnit.ReviewServiceTest.executor": "Coverage",
+    "JUnit.guideproject in guideproject.executor": "Run",
+    "JUnit.service in guideproject.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -83,22 +83,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.guideproject in guideproject">
-    <configuration name="LandmarkCategoryServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="guideproject" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="academy.mediasoft.team.guideproject.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="academy.mediasoft.team.guideproject.service" />
-      <option name="MAIN_CLASS_NAME" value="academy.mediasoft.team.guideproject.service.LandmarkCategoryServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Spring Boot.GuideprojectApplication">
     <configuration name="RatingServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="guideproject" />
       <extension name="coverage">
@@ -130,6 +115,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ReviewServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="guideproject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="academy.mediasoft.team.guideproject.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="academy.mediasoft.team.guideproject.service" />
+      <option name="MAIN_CLASS_NAME" value="academy.mediasoft.team.guideproject.service.ReviewServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="guideproject in guideproject" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="guideproject" />
       <option name="TEST_OBJECT" value="directory" />
@@ -156,10 +156,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.guideproject in guideproject" />
+        <item itemvalue="JUnit.service in guideproject" />
+        <item itemvalue="JUnit.ReviewServiceTest" />
         <item itemvalue="JUnit.RatingServiceTest" />
         <item itemvalue="JUnit.RatingServiceTest.addRating_validData_save" />
-        <item itemvalue="JUnit.service in guideproject" />
-        <item itemvalue="JUnit.LandmarkCategoryServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -194,7 +194,7 @@
       <workItem from="1782631221944" duration="905000" />
       <workItem from="1782636209739" duration="644000" />
       <workItem from="1782640103593" duration="8900000" />
-      <workItem from="1782659517141" duration="9143000" />
+      <workItem from="1782659517141" duration="11176000" />
     </task>
     <servers />
   </component>
@@ -202,14 +202,17 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/backend$guideproject_in_guideproject.ic" NAME="guideproject in guideproject Coverage Results" MODIFIED="1782661436455" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/backend$guideproject_in_guideproject.ic" NAME="guideproject in guideproject Coverage Results" MODIFIED="1782668851987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/backend$LandmarkCategoryServiceTest.ic" NAME="LandmarkCategoryServiceTest Coverage Results" MODIFIED="1782664407111" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>academy.mediasoft.team.guideproject.service.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$RatingServiceTest.ic" NAME="RatingServiceTest Coverage Results" MODIFIED="1782668468394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$ReviewServiceTest.ic" NAME="ReviewServiceTest Coverage Results" MODIFIED="1782669916675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>academy.mediasoft.team.guideproject.service.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$service_in_guideproject.ic" NAME="service in guideproject Coverage Results" MODIFIED="1782666498961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/backend$RatingServiceTest.ic" NAME="RatingServiceTest Coverage Results" MODIFIED="1782668838536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>academy.mediasoft.team.guideproject.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$service_in_guideproject.ic" NAME="service in guideproject Coverage Results" MODIFIED="1782670094806" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/backend$PersonServiceTest.ic" NAME="PersonServiceTest Coverage Results" MODIFIED="1782660980534" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>academy.mediasoft.team.guideproject.service.*</FILTER>
     </SUITE>
