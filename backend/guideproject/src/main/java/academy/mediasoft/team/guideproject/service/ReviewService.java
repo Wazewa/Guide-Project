@@ -36,6 +36,12 @@ public class ReviewService {
                 () -> new RuntimeException("Отзыв не существует!")));
     }
 
+    @Transactional(readOnly = true)
+    public List<ReviewDto> getReviewsByLandmarkId(Long id) {
+        return reviewRepository.findByLandmarkId(id).stream()
+                .map(this::toDto).toList();
+    }
+
     @Transactional
     public ReviewDto addReview(ReviewDto reviewDto) {
 

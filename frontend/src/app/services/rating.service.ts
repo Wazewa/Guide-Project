@@ -1,9 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+export interface RatingDto {
+  id: number;
+  grade: number;
+  createdAt: string;
+  landmarkId: number;
+}
+
+@Injectable({ providedIn: 'root' })
 export class RatingService {
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
+  getByLandmarkId(landmarkId: number): Observable<RatingDto[]> {
+    return this.http.get<RatingDto[]>(`/api/ratings?landmarkId=${landmarkId}`);
+  }
 }

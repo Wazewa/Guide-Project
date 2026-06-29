@@ -28,7 +28,6 @@ export class LandmarkListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Загружаем категории
     this.categoryService.getMap().subscribe({
       next: (map) => {
         this.categoryMap = map;
@@ -37,7 +36,6 @@ export class LandmarkListComponent implements OnInit {
       error: (err) => console.error('Ошибка загрузки категорий:', err)
     });
 
-    // Загружаем достопримечательности
     this.landmarkService.getAll().subscribe({
       next: (data) => {
         this.landmarks = data;

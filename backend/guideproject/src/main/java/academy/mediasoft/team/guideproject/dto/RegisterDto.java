@@ -16,8 +16,5 @@ public record RegisterDto(
         @NotBlank(message = "Поле почты должно быть непустым")
         String email,
         @NotBlank(message = "Поле пароля должно быть непустым")
-        String password,
-        @NotBlank(message = "Поле роли должно быть непустым")
-        @DefaultValue(value = "USER")
-        String role
+        String password
 ) { }

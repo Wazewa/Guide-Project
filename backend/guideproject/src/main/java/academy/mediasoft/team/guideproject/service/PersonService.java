@@ -79,8 +79,7 @@ public class PersonService {
                 person.getId(),
                 person.getName(),
                 person.getSurname(),
-                person.getEmail(),
-                person.getRole()
+                person.getEmail()
         );
     }
 }

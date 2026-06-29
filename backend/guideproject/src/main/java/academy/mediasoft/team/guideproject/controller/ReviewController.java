@@ -4,6 +4,7 @@ import academy.mediasoft.team.guideproject.dto.ReviewDto;
 import academy.mediasoft.team.guideproject.service.ReviewService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,8 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @GetMapping
-    public List<ReviewDto> getAllReviews() {
-        return reviewService.getAllReviews();
+    public ResponseEntity<List<ReviewDto>> getAllReviews() {
+        return ResponseEntity.ok(reviewService.getAllReviews());
     }
 
     @GetMapping("/{id}")
@@ -28,6 +29,11 @@ public class ReviewController {
         ReviewDto reviewDto = reviewService.getReviewById(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(reviewDto);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ReviewDto>> getReviewsByLandmarkId(@RequestParam Long landmarkId) {
+        return ResponseEntity.ok(reviewService.getReviewsByLandmarkId(landmarkId));
     }
 
     @PostMapping

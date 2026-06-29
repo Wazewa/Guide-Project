@@ -3,6 +3,7 @@ package academy.mediasoft.team.guideproject.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 public record PersonDto (
     Long id,
@@ -14,7 +15,5 @@ public record PersonDto (
     String surname,
     @Email
     @NotBlank(message = "Поле почты должно быть непустым")
-    String email,
-    @NotBlank(message = "Поле роли должно быть непустым")
-    String role
+    String email
 ) {}

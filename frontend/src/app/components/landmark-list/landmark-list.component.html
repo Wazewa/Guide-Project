@@ -4,7 +4,7 @@
     <mat-card-subtitle>{{ getCategoryName(landmark.landmarkCategoryId) }}</mat-card-subtitle>
     <mat-card-content>
       <p>{{ landmark.description | slice:0:150 }}{{ landmark.description.length > 150 ? '...' : '' }}</p>
-      <p><strong>Средняя оценка:</strong> {{ landmark.averageRating || '��� ������' }}</p>
+      <p><strong>Средняя оценка:</strong> {{ landmark.averageRating || 'Нет оценок' }}</p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button [routerLink]="['/landmarks', landmark.id]">Подробнее</button>

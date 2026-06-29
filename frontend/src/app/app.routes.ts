@@ -10,5 +10,5 @@ export const routes: Routes = [
   { path: 'landmarks/:id', component: LandmarkDetailComponent },
   { path: 'search', component: LandmarkSearchComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent }
 ];
