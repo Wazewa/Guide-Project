@@ -1,0 +1,29 @@
+<div class="detail-container" *ngIf="landmark">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ landmark.name }}</mat-card-title>
+      <mat-card-subtitle>{{ categoryName }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p><strong>Описание:</strong></p>
+      <p>{{ landmark.description }}</p>
+
+      <mat-divider></mat-divider>
+
+      <p><strong>Адрес:</strong> {{ landmark.address }}</p>
+      <p><strong>Средняя оценка:</strong>
+        <span *ngIf="landmark.averageRating > 0">{{ landmark.averageRating | number:'1.1-1' }} / 5</span>
+        <span *ngIf="!landmark.averageRating || landmark.averageRating === 0">Нет оценок</span>
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-button routerLink="/">← На главную</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div *ngIf="!landmark" class="loading">
+  <p>Загрузка...</p>
+</div>
