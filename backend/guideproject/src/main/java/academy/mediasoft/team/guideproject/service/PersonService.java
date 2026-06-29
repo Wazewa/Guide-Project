@@ -32,6 +32,12 @@ public class PersonService {
     }
 
     @Transactional
+    public PersonDto getPersonByEmail(String email) {
+        return toDto(personRepository.findByEmail(email).orElseThrow(()
+                -> new RuntimeException("Пользователь не найден!")));
+    }
+
+    @Transactional
     public PersonDto addPerson(RegisterDto registerDto) {
         if(personRepository.existsByEmail(registerDto.email())) {
             throw new RuntimeException("Пользователь с такой почтой уже есть!");
@@ -82,4 +88,6 @@ public class PersonService {
                 person.getEmail()
         );
     }
+
+
 }
