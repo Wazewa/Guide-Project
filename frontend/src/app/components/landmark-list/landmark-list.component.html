@@ -4,7 +4,13 @@
     <mat-card-subtitle>{{ getCategoryName(landmark.landmarkCategoryId) }}</mat-card-subtitle>
     <mat-card-content>
       <p>{{ landmark.description | slice:0:150 }}{{ landmark.description.length > 150 ? '...' : '' }}</p>
-      <p><strong>Средняя оценка:</strong> {{ landmark.averageRating || 'Нет оценок' }}</p>
+      <p>
+        <strong>Средняя оценка:</strong>
+        <span *ngIf="landmark.averageRating > 0; else noRating">
+    {{ landmark.averageRating | number:'1.1-1' }} {{ getStars(landmark.averageRating) }}
+           </span>
+        <ng-template #noRating>Нет оценок</ng-template>
+      </p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button [routerLink]="['/landmarks', landmark.id]">Подробнее</button>

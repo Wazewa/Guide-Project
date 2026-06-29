@@ -23,7 +23,7 @@ public class Rating {
     private Long id;
 
     @Column(nullable = false, name = "grade")
-    private Integer grade;
+    private Double grade;
 
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp

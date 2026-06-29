@@ -1,6 +1,7 @@
 package academy.mediasoft.team.guideproject.repository;
 
-import academy.mediasoft.team.guideproject.entity.Person;
+import java.util.List;
+import java.util.Optional;
 import academy.mediasoft.team.guideproject.entity.Rating;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +14,6 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
     Double getAverageRatingById(@Param("landmarkId") Long id);
 
     boolean existsByPersonIdAndLandmarkId(Long personId, Long landmarkId);
+
+    List<Rating> findByLandmarkId(Long landmarkId);
 }

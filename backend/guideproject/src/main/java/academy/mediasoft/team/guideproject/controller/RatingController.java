@@ -30,6 +30,12 @@ public class RatingController {
         return ResponseEntity.status(HttpStatus.OK).body(ratingDto);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<RatingDto>> getRatingsByLandmarkId(
+            @RequestParam Long landmarkId) {
+        return ResponseEntity.ok(ratingService.getRatingsByLandmarkId(landmarkId));
+    }
+
     @PostMapping
     public ResponseEntity<RatingDto> addRating(@RequestBody @Valid RatingDto ratingDto) {
 

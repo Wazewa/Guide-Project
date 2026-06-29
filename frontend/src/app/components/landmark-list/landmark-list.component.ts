@@ -31,21 +31,27 @@ export class LandmarkListComponent implements OnInit {
     this.categoryService.getMap().subscribe({
       next: (map) => {
         this.categoryMap = map;
-        console.log('Категории загружены:', map);
+        console.log('РљР°С‚РµРіРѕСЂРёРё Р·Р°РіСЂСѓР¶РµРЅС‹:', map);
       },
-      error: (err) => console.error('Ошибка загрузки категорий:', err)
+      error: (err) => console.error('РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РєР°С‚РµРіРѕСЂРёР№:', err)
     });
 
     this.landmarkService.getAll().subscribe({
       next: (data) => {
         this.landmarks = data;
-        console.log('Достопримечательности загружены:', data);
+        console.log('Р”РѕСЃС‚РѕРїСЂРёРјРµС‡Р°С‚РµР»СЊРЅРѕСЃС‚Рё Р·Р°РіСЂСѓР¶РµРЅС‹:', data);
       },
-      error: (err) => console.error('Ошибка загрузки достопримечательностей:', err)
+      error: (err) => console.error('РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РґРѕСЃС‚РѕРїСЂРёРјРµС‡Р°С‚РµР»СЊРЅРѕСЃС‚РµР№:', err)
     });
   }
 
   getCategoryName(id: number): string {
-    return this.categoryMap.get(id) || 'Неизвестно';
+    return this.categoryMap.get(id) || 'РќРµРёР·РІРµСЃС‚РЅРѕ';
+  }
+
+  getStars(rating: number): string {
+    const full = Math.round(rating);
+    const empty = 5 - full;
+    return 'в­ђ'.repeat(full) + 'в†'.repeat(empty);
   }
 }

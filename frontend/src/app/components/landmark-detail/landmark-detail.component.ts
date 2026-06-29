@@ -69,7 +69,7 @@ export class LandmarkDetailComponent implements OnInit {
   reviews: ReviewDto[] = [];
   ratings: RatingDto[] = [];
   averageRating: number = 0;
-  users: Map<number, string> = new Map();  // ✅ добавляем
+  users: Map<number, string> = new Map();
 
   constructor(
     private route: ActivatedRoute,
@@ -126,7 +126,6 @@ export class LandmarkDetailComponent implements OnInit {
     });
   }
 
-  // ✅ Загружаем всех пользователей для отображения имён авторов
   private loadAllUsers(): void {
     this.personService.getAll().subscribe({
       next: (users: PersonDto[]) => {

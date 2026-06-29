@@ -11,7 +11,7 @@ public record RatingDto(
         @Min(1)
         @Max(5)
         @NotNull(message = "Оценка должна быть поставлена")
-        Integer grade,
+        Double grade,
         LocalDateTime createdAt,
         Long landmarkId
 ) { }

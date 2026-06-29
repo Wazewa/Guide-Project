@@ -36,6 +36,13 @@ public class RatingService {
                 () -> new RuntimeException("Оценка не найдена!")));
     }
 
+    @Transactional(readOnly = true)
+    public List<RatingDto> getRatingsByLandmarkId(Long landmarkId) {
+        return ratingRepository.findByLandmarkId(landmarkId).stream()
+                .map(this::toDto)
+                .toList();
+    }
+
     @Transactional
     public RatingDto addRating(RatingDto ratingDto) {
 
@@ -123,4 +130,6 @@ public class RatingService {
                 () -> new RuntimeException("Пользователь не найден!")
         );
     }
+
+
 }

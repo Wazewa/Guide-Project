@@ -21,9 +21,11 @@ public class LandmarkService {
 
     @Transactional(readOnly = true)
     public List<LandmarkDto> getAllLandmarks() {
-
         return landmarkRepository.findAll().stream()
-                .map(this::toDto)
+                .map(landmark -> {
+                    Double avg = ratingService.getAverageRatingForLandmark(landmark.getId());
+                    return toDto(landmark, avg != null ? avg : 0.0);
+                })
                 .toList();
     }
 

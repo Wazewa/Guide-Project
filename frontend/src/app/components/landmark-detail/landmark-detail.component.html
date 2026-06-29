@@ -14,10 +14,12 @@
       <p><strong>Адрес:</strong> {{ landmark.address }}</p>
 
       <p><strong>Средняя оценка:</strong>
-        <span *ngIf="averageRating > 0">
-          {{ averageRating | number:'1.1-1' }} / 5 &nbsp; {{ getStars(averageRating) }}
+        <span *ngIf="averageRating > 0; else noRating">
+  {{ averageRating | number:'1.1-1' }} {{ getStars(averageRating) }}
         </span>
-        <span *ngIf="!averageRating || averageRating === 0">Нет оценок</span>
+        <ng-template #noRating>
+          Нет оценок
+        </ng-template>
       </p>
     </mat-card-content>
 
