@@ -8,6 +8,7 @@ import academy.mediasoft.team.guideproject.service.PersonService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -41,5 +42,15 @@ public class AuthController {
         session.setAttribute("SPRING_SECURITY_CONTEXT", context);
 
         return new AuthResponse("Аутентификация прошла успешно");
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();  // ← Удаляем сессию
+        }
+        SecurityContextHolder.clearContext();  // ← Очищаем контекст
+        return ResponseEntity.ok().build();
     }
 }
