@@ -1,6 +1,7 @@
 package academy.mediasoft.team.guideproject.service;
 
 import academy.mediasoft.team.guideproject.dto.ReviewDto;
+import academy.mediasoft.team.guideproject.dto.ReviewRequest;
 import academy.mediasoft.team.guideproject.entity.Landmark;
 import academy.mediasoft.team.guideproject.entity.LandmarkCategory;
 import academy.mediasoft.team.guideproject.entity.Person;
@@ -48,6 +49,11 @@ public class ReviewServiceTest {
         ReviewDto reviewDto = initializeReviewDto();
         Review review = initializeReview(reviewDto, landmark, person);
 
+        ReviewRequest request = new ReviewRequest(
+                "Все прекрасно",
+                landmark.getId()
+        );
+
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         Mockito.when(authentication.getName()).thenReturn("wazewa@test.ru");
@@ -62,7 +68,7 @@ public class ReviewServiceTest {
         Mockito.when(reviewRepository.save(Mockito.any(Review.class)))
                 .thenReturn(review);
 
-        ReviewDto result = reviewService.addReview(reviewDto);
+        ReviewDto result = reviewService.addReview(request);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(review.getId(), result.id());
@@ -79,7 +85,14 @@ public class ReviewServiceTest {
     @Test
     public void addReview_landmarkNotFound_throwException() {
         Person person = initializePerson();
+        LandmarkCategory landmarkCategory = initializeLandmarkCategory();
+        Landmark landmark = initializeLandmark(landmarkCategory);
         ReviewDto reviewDto = initializeReviewDto();
+
+        ReviewRequest request = new ReviewRequest(
+                "Все прекрасно",
+                landmark.getId()
+        );
 
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
@@ -92,7 +105,7 @@ public class ReviewServiceTest {
                 .thenReturn(Optional.empty());
 
         Assertions.assertThrows(RuntimeException.class, () ->
-                reviewService.addReview(reviewDto));
+                reviewService.addReview(request));
 
         Mockito.verify(landmarkRepository).findById(reviewDto.landmarkId());
         Mockito.verify(reviewRepository, Mockito.never()).existsByPersonIdAndLandmarkId(person.getId(), reviewDto.landmarkId());
@@ -105,6 +118,11 @@ public class ReviewServiceTest {
         LandmarkCategory landmarkCategory = initializeLandmarkCategory();
         Landmark landmark = initializeLandmark(landmarkCategory);
         ReviewDto reviewDto = initializeReviewDto();
+
+        ReviewRequest request = new ReviewRequest(
+                "Все прекрасно",
+                landmark.getId()
+        );
 
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
@@ -119,7 +137,7 @@ public class ReviewServiceTest {
                 .thenReturn(true);
 
         Assertions.assertThrows(RuntimeException.class, () ->
-                reviewService.addReview(reviewDto));
+                reviewService.addReview(request));
 
         Mockito.verify(landmarkRepository).findById(reviewDto.landmarkId());
         Mockito.verify(reviewRepository).existsByPersonIdAndLandmarkId(person.getId(), reviewDto.landmarkId());
@@ -249,7 +267,8 @@ public class ReviewServiceTest {
                 "Все прекрасно",
                 LocalDateTime.now(),
                 LocalDateTime.now(),
-                1L
+                1L,
+        15L
         );
     }
 

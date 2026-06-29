@@ -14,6 +14,10 @@ export class RatingService {
   constructor(private http: HttpClient) {}
 
   getByLandmarkId(landmarkId: number): Observable<RatingDto[]> {
-    return this.http.get<RatingDto[]>(`/api/ratings?landmarkId=${landmarkId}`);
+    return this.http.get<RatingDto[]>(`/api/ratings/search?landmarkId=${landmarkId}`);
+  }
+
+  addRating(rating: { grade: number; landmarkId: number }): Observable<RatingDto> {
+    return this.http.post<RatingDto>('/api/ratings', rating);
   }
 }

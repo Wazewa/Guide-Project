@@ -1,6 +1,7 @@
 package academy.mediasoft.team.guideproject.service;
 
 import academy.mediasoft.team.guideproject.dto.ReviewDto;
+import academy.mediasoft.team.guideproject.dto.ReviewRequest;
 import academy.mediasoft.team.guideproject.entity.Landmark;
 import academy.mediasoft.team.guideproject.entity.Person;
 import academy.mediasoft.team.guideproject.entity.Review;
@@ -43,20 +44,20 @@ public class ReviewService {
     }
 
     @Transactional
-    public ReviewDto addReview(ReviewDto reviewDto) {
+    public ReviewDto addReview(ReviewRequest request) {
 
         Person person = getPersonFromContext();
 
-        Landmark landmark = landmarkRepository.findById(reviewDto.landmarkId()).orElseThrow(
+        Landmark landmark = landmarkRepository.findById(request.landmarkId()).orElseThrow(
                 () -> new RuntimeException("Достопримечательность не найдена!")
         );
 
-        if(reviewRepository.existsByPersonIdAndLandmarkId(person.getId(), reviewDto.landmarkId())) {
+        if(reviewRepository.existsByPersonIdAndLandmarkId(person.getId(), request.landmarkId())) {
             throw new RuntimeException("Оценка уже есть!");
         }
 
         Review review = Review.builder().
-                reviewText(reviewDto.reviewText()).
+                reviewText(request.reviewText()).
                 person(person).
                 landmark(landmark).
                 build();
@@ -112,7 +113,8 @@ public class ReviewService {
           review.getReviewText(),
           review.getCreatedAt(),
           review.getUpdatedAt(),
-          review.getLandmark().getId()
+          review.getLandmark().getId(),
+          review.getPerson().getName() + " " + review.getPerson().getSurname()
         );
     }
 

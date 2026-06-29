@@ -9,6 +9,7 @@ import { LandmarkService, LandmarkDto } from '../../services/landmark.service';
 import { CategoryService } from '../../services/category.service';
 import { ReviewService, ReviewDto } from '../../services/review.service';
 import { RatingService, RatingDto } from '../../services/rating.service';
+import { PersonService, PersonDto } from '../../services/person.service';
 
 @Component({
   selector: 'app-landmark-detail',
@@ -42,9 +43,23 @@ import { RatingService, RatingDto } from '../../services/rating.service';
       background: #f5f5f5;
       border-radius: 8px;
     }
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .review-author {
+      font-weight: 600;
+      color: #212121;
+    }
     .review-date {
       font-size: 12px;
       color: #888;
+    }
+    .review-text {
+      margin: 4px 0 0 0;
+      color: #424242;
     }
   `]
 })
@@ -52,14 +67,17 @@ export class LandmarkDetailComponent implements OnInit {
   landmark: LandmarkDto | null = null;
   categoryName: string = '';
   reviews: ReviewDto[] = [];
+  ratings: RatingDto[] = [];
   averageRating: number = 0;
+  users: Map<number, string> = new Map();  // ✅ добавляем
 
   constructor(
     private route: ActivatedRoute,
     private landmarkService: LandmarkService,
     private categoryService: CategoryService,
     private reviewService: ReviewService,
-    private ratingService: RatingService
+    private ratingService: RatingService,
+    private personService: PersonService
   ) {}
 
   ngOnInit() {
@@ -69,6 +87,7 @@ export class LandmarkDetailComponent implements OnInit {
       this.loadLandmark(landmarkId);
       this.loadReviews(landmarkId);
       this.loadRatings(landmarkId);
+      this.loadAllUsers();  // ✅ загружаем пользователей
     }
   }
 
@@ -105,6 +124,21 @@ export class LandmarkDetailComponent implements OnInit {
       },
       error: (err) => console.error('Ошибка загрузки оценок:', err)
     });
+  }
+
+  // ✅ Загружаем всех пользователей для отображения имён авторов
+  private loadAllUsers(): void {
+    this.personService.getAll().subscribe({
+      next: (users: PersonDto[]) => {
+        users.forEach(user => this.users.set(user.id, user.name));
+        console.log('✅ Пользователи загружены:', this.users);
+      },
+      error: (err) => console.error('❌ Ошибка загрузки пользователей:', err)
+    });
+  }
+
+  getUserName(id: number): string {
+    return this.users.get(id) || 'Неизвестно';
   }
 
   getStars(rating: number): string {

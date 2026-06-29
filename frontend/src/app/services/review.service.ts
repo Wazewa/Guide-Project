@@ -8,6 +8,7 @@ export interface ReviewDto {
   createdAt: string;
   updatedAt: string;
   landmarkId: number;
+  personName: string
 }
 
 @Injectable({ providedIn: 'root' })
@@ -16,5 +17,9 @@ export class ReviewService {
 
   getByLandmarkId(landmarkId: number): Observable<ReviewDto[]> {
     return this.http.get<ReviewDto[]>(`/api/reviews/search?landmarkId=${landmarkId}`);
+  }
+
+  addReview(review: { reviewText: string; landmarkId: number }): Observable<ReviewDto> {
+    return this.http.post<ReviewDto>('/api/reviews', review);
   }
 }

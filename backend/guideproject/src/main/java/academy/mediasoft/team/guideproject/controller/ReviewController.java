@@ -1,6 +1,7 @@
 package academy.mediasoft.team.guideproject.controller;
 
 import academy.mediasoft.team.guideproject.dto.ReviewDto;
+import academy.mediasoft.team.guideproject.dto.ReviewRequest;
 import academy.mediasoft.team.guideproject.service.ReviewService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -37,9 +38,9 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ResponseEntity<ReviewDto> addReview(@RequestBody @Valid ReviewDto reviewDto) {
+    public ResponseEntity<ReviewDto> addReview(@RequestBody @Valid ReviewRequest request) {
 
-        ReviewDto createdReview = reviewService.addReview(reviewDto);
+        ReviewDto createdReview = reviewService.addReview(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdReview);
     }

@@ -6,12 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="0db70a2c-e450-410f-9553-7bee6919ce8f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/auth/login/login.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/auth/login/login.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/auth/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/auth/login/login.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/landmark-list/landmark-list.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/landmark-list/landmark-list.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/controller/ReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/controller/ReviewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/dto/ReviewDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/dto/ReviewDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/main/java/academy/mediasoft/team/guideproject/service/ReviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guideproject/src/test/java/academy/mediasoft/team/guideproject/service/ReviewServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/test/java/academy/mediasoft/team/guideproject/service/ReviewServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/landmark-detail/landmark-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/landmark-detail/landmark-detail.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/landmark-detail/landmark-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/landmark-detail/landmark-detail.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/services/rating.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/services/rating.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/services/review.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/services/review.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
