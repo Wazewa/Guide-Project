@@ -1,4 +1,73 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-toolbar {
+  background-color: #212121 !important;
+  color: #ffc107 !important;
+}
+
+.mat-toolbar .mat-mdc-button {
+  color: #ffffff !important;
+}
+
+.mat-toolbar .mat-mdc-button:hover {
+  color: #ffc107 !important;
+}
+
+.mat-mdc-raised-button.mat-primary {
+  background-color: #ffc107 !important;
+  color: #212121 !important;
+}
+
+.mat-mdc-raised-button.mat-primary:hover {
+  background-color: #f9a825 !important;
+}
+
+.mat-mdc-card {
+  background-color: #ffffff !important;
+  color: #212121 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+.mat-mdc-card-title {
+  color: #212121 !important;
+}
+
+.mat-mdc-card-subtitle {
+  color: #757575 !important;
+}
+
+.mat-mdc-card-content {
+  color: #424242 !important;
+}
+
+.mat-mdc-card-actions .mat-mdc-button {
+  color: #ffc107 !important;
+}
+
+.mat-mdc-card-actions .mat-mdc-button:hover {
+  background-color: rgba(255, 193, 7, 0.1) !important;
+}
+
+.mat-mdc-form-field {
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.mat-mdc-input-element {
+  color: #212121 !important;
+}
+
+a {
+  color: #ffc107 !important;
+}
+
+a:hover {
+  color: #f9a825 !important;
+}

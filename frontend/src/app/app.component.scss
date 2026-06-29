@@ -4,5 +4,19 @@
 
 .user-name {
   margin: 0 16px;
-  color: white;
+  color: #ffffff;
+}
+
+.mat-toolbar {
+  background-color: #212121 !important;
+  color: #ffc107 !important;
+  border-bottom: 2px solid #ffc107;
+}
+
+.mat-toolbar .mat-mdc-button {
+  color: #ffffff !important;
+}
+
+.mat-toolbar .mat-mdc-button:hover {
+  color: #ffc107 !important;
 }

@@ -1,0 +1,112 @@
+.login-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 0 16px;
+}
+
+mat-card {
+  background-color: #ffffff !important;
+  color: #212121 !important;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  padding: 24px;
+}
+
+mat-card-title {
+  color: #212121 !important;
+  font-weight: 600;
+  font-size: 24px;
+  text-align: center;
+}
+
+mat-card-content {
+  padding-top: 16px;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.mat-mdc-text-field-wrapper {
+  background-color: #ffffff !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 8px !important;
+  transition: border 0.2s;
+}
+
+.mat-mdc-text-field-wrapper:hover {
+  border-color: #ffc107 !important;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-text-field-wrapper {
+  border: 2px solid #ffc107 !important;
+  background-color: #ffffff !important;
+}
+
+.mat-mdc-input-element {
+  color: #212121 !important;
+}
+
+.mat-mdc-input-element::placeholder {
+  color: #999999 !important;
+}
+
+.mat-mdc-floating-label {
+  color: #212121 !important;
+}
+
+.mat-mdc-form-field-underline {
+  display: none !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+.mat-mdc-form-field-ripple {
+  background-color: transparent !important;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-ripple {
+  background-color: #ffc107 !important;
+}
+
+.mat-mdc-raised-button.mat-primary {
+  background-color: #ffc107 !important;
+  color: #212121 !important;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0 24px;
+  height: 48px;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.mat-mdc-raised-button.mat-primary:hover {
+  background-color: #f9a825 !important;
+  transform: translateY(-1px);
+}
+
+.mat-mdc-raised-button.mat-primary:disabled {
+  background-color: #bdbdbd !important;
+  color: #757575 !important;
+}
+
+.mat-mdc-button {
+  color: #ffc107 !important;
+  font-weight: 500;
+  display: block;
+  margin: 12px auto 0;
+}
+
+.mat-mdc-button:hover {
+  background-color: rgba(255, 193, 7, 0.1) !important;
+}
+
+.error {
+  color: #ff5252;
+  margin-top: 12px;
+  text-align: center;
+}

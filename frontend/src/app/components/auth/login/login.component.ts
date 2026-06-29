@@ -48,11 +48,7 @@ import { AuthService } from '../../../services/auth.service';
       </mat-card>
     </div>
   `,
-  styles: [`
-    .login-container { max-width: 400px; margin: 50px auto; padding: 0 16px; }
-    .full-width { width: 100%; margin-bottom: 16px; }
-    .error { color: red; margin-top: 12px; }
-  `]
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   email: string = '';
