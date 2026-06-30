@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService, UserDto } from './services/auth.service';
+import { NotificationService } from './services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -22,11 +23,11 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService  // ← добавить
   ) {}
 
   ngOnInit() {
-    // ✅ Подписываемся на изменения пользователя
     this.authService.currentUser$.subscribe({
       next: (data) => {
         this.user = data;
@@ -42,15 +43,20 @@ export class AppComponent implements OnInit {
     this.authService.loadCurrentUser();
   }
 
-  logout() {
-    this.authService.logout().subscribe({
-      next: () => {
-        console.log('✅ Выход выполнен');
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        console.error('❌ Ошибка выхода:', err);
-        this.router.navigate(['/']);
+  logout(): void {
+    this.notificationService.confirm('Вы уверены, что хотите выйти?').subscribe({
+      next: (confirmed) => {
+        if (confirmed) {
+          this.authService.logout().subscribe({
+            next: () => {
+              this.user = null;
+              this.router.navigate(['/']);
+            },
+            error: (err) => {
+              console.error('Ошибка выхода:', err);
+            }
+          });
+        }
       }
     });
   }
