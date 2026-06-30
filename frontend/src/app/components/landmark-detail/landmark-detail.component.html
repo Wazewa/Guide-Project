@@ -1,4 +1,5 @@
 <div class="detail-container" *ngIf="landmark">
+  <!-- Карточка с информацией о достопримечательности -->
   <mat-card>
     <mat-card-header>
       <mat-card-title>{{ landmark.name }}</mat-card-title>
@@ -15,7 +16,7 @@
 
       <p><strong>Средняя оценка:</strong>
         <span *ngIf="averageRating > 0; else noRating">
-  {{ averageRating | number:'1.1-1' }} {{ getStars(averageRating) }}
+          {{ averageRating | number:'1.1-1' }} {{ getStars(averageRating) }}
         </span>
         <ng-template #noRating>
           Нет оценок
@@ -28,7 +29,7 @@
     </mat-card-actions>
   </mat-card>
 
-
+  <!-- Блок отзывов -->
   <mat-card>
     <mat-card-header>
       <mat-card-title>Отзывы</mat-card-title>
@@ -50,13 +51,60 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card *ngIf="user">
+  <!-- Форма для оценки (только для авторизованных) -->
+  <mat-card *ngIf="user && !hasUserRated(); else alreadyRated">
     <mat-card-header>
       <mat-card-title>Оцените место</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <app-star-rating [(rating)]="newRating"></app-star-rating>
-      <button mat-raised-button color="primary" (click)="submitRating()">Отправить</button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="submitRating()"
+        [disabled]="newRating === 0">
+        Отправить
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <ng-template #alreadyRated>
+    <mat-card *ngIf="user">
+      <mat-card-content>
+        <p>✅ Вы уже оценили это место!</p>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+
+  <mat-card *ngIf="user" class="review-form-card">
+    <mat-card-header>
+      <mat-card-title>Оставить отзыв</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Ваш отзыв</mat-label>
+        <textarea
+          matInput
+          rows="4"
+          [(ngModel)]="newReviewText"
+          placeholder="Поделитесь впечатлениями..."
+          class="review-textarea"></textarea>
+      </mat-form-field>
+      <div class="review-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="submitReview()"
+          [disabled]="!newReviewText || newReviewText.trim().length < 3">
+          Отправить отзыв
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="!user">
+    <mat-card-content>
+      <p>Чтобы оставить отзыв или оценить место, <a routerLink="/login">войдите</a> или <a routerLink="/register">зарегистрируйтесь</a>.</p>
     </mat-card-content>
   </mat-card>
 </div>

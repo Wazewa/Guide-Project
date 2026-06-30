@@ -1,0 +1,80 @@
+.detail-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.review-textarea {
+  min-height: 120px;
+  resize: vertical;
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-card {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.review-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.review-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.review-actions button {
+  min-width: 150px;
+  font-weight: 500;
+}
+
+// Стили для отзывов
+.review-item {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.review-author {
+  font-weight: 600;
+  color: #212121;
+}
+
+.review-date {
+  font-size: 12px;
+  color: #888;
+}
+
+.review-text {
+  margin: 4px 0 0 0;
+  color: #424242;
+}
+
+// Кнопка "На главную"
+mat-card-actions {
+  padding: 8px 0 0 0;
+}

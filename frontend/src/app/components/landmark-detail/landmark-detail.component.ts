@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
@@ -12,6 +13,8 @@ import { RatingService, RatingDto } from '../../services/rating.service';
 import { AuthService, UserDto } from '../../services/auth.service';
 import { PersonService, PersonDto } from '../../services/person.service';
 import { NotificationService } from '../../services/notification.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { StarRatingComponent } from '../../components/star-rating/star-rating.component';
 
 @Component({
@@ -23,6 +26,9 @@ import { StarRatingComponent } from '../../components/star-rating/star-rating.co
     MatCardModule,
     MatButtonModule,
     MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
     StarRatingComponent,
     MatListModule
   ],
@@ -71,6 +77,7 @@ export class LandmarkDetailComponent implements OnInit {
   landmark: LandmarkDto | null = null;
   user: UserDto | null = null;
   newRating: number = 0;
+  newReviewText: string = '';
   categoryName: string = '';
   reviews: ReviewDto[] = [];
   ratings: RatingDto[] = [];
@@ -196,6 +203,35 @@ export class LandmarkDetailComponent implements OnInit {
         console.error('Ошибка:', err);
         if (err.status === 400) {
           this.notificationService.error('Вы уже оценили это место!');
+        }
+      }
+    });
+  }
+  submitReview(): void {
+    if (!this.landmark || !this.newReviewText || this.newReviewText.trim().length < 3) {
+      return;
+    }
+
+    if (!this.user) {
+      this.notificationService.error('Войдите в систему, чтобы оставить отзыв');
+      return;
+    }
+
+    this.reviewService.addReview({
+      reviewText: this.newReviewText.trim(),
+      landmarkId: this.landmark.id
+    }).subscribe({
+      next: () => {
+        this.notificationService.success('Отзыв добавлен!');
+        this.newReviewText = '';
+        this.loadReviews(this.landmark!.id);
+      },
+      error: (err) => {
+        console.error('Ошибка:', err);
+        if (err.status === 400) {
+          this.notificationService.error('Вы уже оставили отзыв на это место');
+        } else {
+          this.notificationService.error('Ошибка при добавлении отзыва');
         }
       }
     });

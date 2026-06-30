@@ -6,8 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="0db70a2c-e450-410f-9553-7bee6919ce8f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/services/notification.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/services/notification.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/landmark-detail/landmark-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/landmark-detail/landmark-detail.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/landmark-detail/landmark-detail.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/landmark-detail/landmark-detail.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/landmark-detail/landmark-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/components/landmark-detail/landmark-detail.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/snackbar/snackbar.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/snackbar/snackbar.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/snackbar/snackbar.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/components/snackbar/snackbar.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/services/review.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/services/review.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,7 +209,7 @@
       <workItem from="1782721585760" duration="31000" />
       <workItem from="1782722081132" duration="276000" />
       <workItem from="1782722361364" duration="5649000" />
-      <workItem from="1782806835516" duration="2005000" />
+      <workItem from="1782806835516" duration="2619000" />
     </task>
     <servers />
   </component>

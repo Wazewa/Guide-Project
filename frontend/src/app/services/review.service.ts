@@ -19,7 +19,7 @@ export class ReviewService {
     return this.http.get<ReviewDto[]>(`/api/reviews/search?landmarkId=${landmarkId}`);
   }
 
-  addReview(review: { reviewText: string; landmarkId: number }): Observable<ReviewDto> {
-    return this.http.post<ReviewDto>('/api/reviews', review);
+  addReview(data: { reviewText: string; landmarkId: number }): Observable<ReviewDto> {
+    return this.http.post<ReviewDto>('/api/reviews', data);
   }
 }
