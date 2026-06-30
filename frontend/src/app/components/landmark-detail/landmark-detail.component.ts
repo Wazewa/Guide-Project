@@ -71,6 +71,22 @@ import { StarRatingComponent } from '../../components/star-rating/star-rating.co
       margin: 4px 0 0 0;
       color: #424242;
     }
+    .hint-error {
+      color: #ff5252 !important;
+      font-weight: 500;
+    }
+    .review-form-card {
+      margin-bottom: 20px;
+    }
+    .full-width {
+      width: 100%;
+    }
+    .review-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 8px;
+    }
   `]
 })
 export class LandmarkDetailComponent implements OnInit {
@@ -81,8 +97,11 @@ export class LandmarkDetailComponent implements OnInit {
   categoryName: string = '';
   reviews: ReviewDto[] = [];
   ratings: RatingDto[] = [];
+  editingReviewId: number | null = null;
+  editingReviewText: string = '';
   averageRating: number = 0;
   users: Map<number, string> = new Map();
+  userReviewIds: Set<number> = new Set();
 
   constructor(
     private route: ActivatedRoute,
@@ -100,6 +119,8 @@ export class LandmarkDetailComponent implements OnInit {
       next: (user) => {
         this.user = user;
         console.log('👤 Текущий пользователь:', user);
+        // После получения пользователя обновляем ID отзывов
+        this.updateUserReviewIds();
       },
       error: (err) => console.error('Ошибка получения пользователя:', err)
     });
@@ -132,7 +153,17 @@ export class LandmarkDetailComponent implements OnInit {
     this.reviewService.getByLandmarkId(landmarkId).subscribe({
       next: (data) => {
         this.reviews = data;
+        // ✅ Обновляем ID отзывов пользователя по имени (без personId)
+        if (this.user) {
+          const fullName = `${this.user.name} ${this.user.surname}`;
+          this.userReviewIds = new Set(
+            data
+              .filter(r => r.personName === fullName)
+              .map(r => r.id)
+          );
+        }
         console.log('Отзывы для достопримечательности', landmarkId, ':', data);
+        console.log('ID отзывов пользователя:', this.userReviewIds);
       },
       error: (err) => console.error('Ошибка загрузки отзывов:', err)
     });
@@ -145,6 +176,7 @@ export class LandmarkDetailComponent implements OnInit {
         const total = data.reduce((sum, r) => sum + r.grade, 0);
         this.averageRating = data.length > 0 ? total / data.length : 0;
         console.log('Средняя оценка:', this.averageRating);
+        console.log('Все оценки:', this.ratings);
       },
       error: (err) => console.error('Ошибка загрузки оценок:', err)
     });
@@ -160,6 +192,28 @@ export class LandmarkDetailComponent implements OnInit {
     });
   }
 
+  // ✅ Обновляем ID отзывов пользователя по имени
+  private updateUserReviewIds(): void {
+    if (!this.user || !this.reviews.length) {
+      this.userReviewIds = new Set();
+      return;
+    }
+
+    const fullName = `${this.user.name} ${this.user.surname}`;
+
+    this.userReviewIds = new Set(
+      this.reviews
+        .filter(r => r.personName === fullName)
+        .map(r => r.id)
+    );
+
+    console.log('Обновлены ID отзывов пользователя:', {
+      fullName: fullName,
+      userReviewIds: this.userReviewIds,
+      totalReviews: this.reviews.length
+    });
+  }
+
   getUserName(id: number): string {
     return this.users.get(id) || 'Неизвестно';
   }
@@ -170,9 +224,23 @@ export class LandmarkDetailComponent implements OnInit {
     return '⭐'.repeat(full) + '☆'.repeat(empty);
   }
 
+  // ✅ Проверка, ставил ли пользователь оценку (по имени)
   hasUserRated(): boolean {
     if (!this.user || !this.ratings.length) return false;
-    return this.ratings.some(r => r.personId === this.user!.id);
+
+    // Находим ID пользователя по имени
+    let userId: number | null = null;
+    for (const [id, name] of this.users) {
+      if (name === this.user!.name) {
+        userId = id;
+        break;
+      }
+    }
+
+    if (userId === null) return false;
+
+    // Проверяем, есть ли оценка от этого пользователя
+    return this.ratings.some(r => r.personId === userId);
   }
 
   submitRating(): void {
@@ -190,6 +258,12 @@ export class LandmarkDetailComponent implements OnInit {
       return;
     }
 
+    console.log('Отправка оценки:', {
+      grade: this.newRating,
+      landmarkId: this.landmark.id,
+      userName: this.user.name
+    });
+
     this.ratingService.addRating({
       grade: this.newRating,
       landmarkId: this.landmark.id
@@ -202,13 +276,29 @@ export class LandmarkDetailComponent implements OnInit {
       error: (err) => {
         console.error('Ошибка:', err);
         if (err.status === 400) {
-          this.notificationService.error('Вы уже оценили это место!');
+          const errorMessage = err.error?.message || err.message || '';
+          if (errorMessage.includes('уже оценили') || errorMessage.includes('уже есть')) {
+            this.notificationService.error('Вы уже оценили это место!');
+          } else {
+            this.notificationService.error(errorMessage || 'Ошибка при добавлении оценки');
+          }
+        } else if (err.status === 500) {
+          this.notificationService.error('Ошибка сервера. Возможно, вы уже оценили это место');
+        } else {
+          this.notificationService.error('Ошибка при добавлении оценки');
         }
       }
     });
   }
+
+  hasUserReviewed(): boolean {
+    if (!this.user || !this.reviews.length) return false;
+    return this.userReviewIds.size > 0;
+  }
+
   submitReview(): void {
-    if (!this.landmark || !this.newReviewText || this.newReviewText.trim().length < 3) {
+    if (!this.landmark || !this.newReviewText || this.newReviewText.trim().length < 30) {
+      this.notificationService.error('Отзыв должен быть не менее 30 символов');
       return;
     }
 
@@ -216,6 +306,17 @@ export class LandmarkDetailComponent implements OnInit {
       this.notificationService.error('Войдите в систему, чтобы оставить отзыв');
       return;
     }
+
+    if (this.hasUserReviewed()) {
+      this.notificationService.error('Вы уже оставили отзыв на это место');
+      return;
+    }
+
+    console.log('Отправка отзыва:', {
+      reviewText: this.newReviewText.trim(),
+      landmarkId: this.landmark.id,
+      userName: this.user.name
+    });
 
     this.reviewService.addReview({
       reviewText: this.newReviewText.trim(),
@@ -229,11 +330,82 @@ export class LandmarkDetailComponent implements OnInit {
       error: (err) => {
         console.error('Ошибка:', err);
         if (err.status === 400) {
-          this.notificationService.error('Вы уже оставили отзыв на это место');
+          const errorMessage = err.error?.message || err.message || '';
+          if (errorMessage.includes('уже оставили отзыв') || errorMessage.includes('уже есть')) {
+            this.notificationService.error('Вы уже оставили отзыв на это место');
+          } else if (errorMessage.includes('от 30 до 1000')) {
+            this.notificationService.error('Отзыв должен быть от 30 до 1000 символов');
+          } else {
+            this.notificationService.error(errorMessage || 'Ошибка при добавлении отзыва');
+          }
+        } else if (err.status === 500) {
+          this.notificationService.error('Вы уже оставили отзыв!');
         } else {
           this.notificationService.error('Ошибка при добавлении отзыва');
         }
       }
     });
+  }
+
+  startEdit(review: ReviewDto): void {
+    this.editingReviewId = review.id;
+    this.editingReviewText = review.reviewText;
+  }
+
+  cancelEdit(): void {
+    this.editingReviewId = null;
+    this.editingReviewText = '';
+  }
+
+  saveEdit(): void {
+    if (!this.editingReviewId || !this.editingReviewText || this.editingReviewText.trim().length < 30) {
+      this.notificationService.error('Отзыв должен быть не менее 30 символов');
+      return;
+    }
+
+    this.reviewService.updateReview(this.editingReviewId, {
+      reviewText: this.editingReviewText.trim()
+    }).subscribe({
+      next: () => {
+        this.notificationService.success('Отзыв обновлён!');
+        this.cancelEdit();
+        this.loadReviews(this.landmark!.id);
+      },
+      error: (err) => {
+        console.error('Ошибка:', err);
+        this.notificationService.error('Ошибка при обновлении отзыва');
+      }
+    });
+  }
+
+  deleteReview(id: number): void {
+    this.notificationService.confirm('Вы уверены, что хотите удалить отзыв?').subscribe({
+      next: (confirmed) => {
+        if (confirmed) {
+          this.reviewService.deleteReview(id).subscribe({
+            next: () => {
+              this.notificationService.success('Отзыв удалён!');
+              this.loadReviews(this.landmark!.id);
+            },
+            error: (err) => {
+              console.error('Ошибка:', err);
+              this.notificationService.error('Ошибка при удалении отзыва');
+            }
+          });
+        }
+      }
+    });
+  }
+
+  isOwnReview(review: ReviewDto): boolean {
+    if (!this.user) return false;
+    const fullName = `${this.user.name} ${this.user.surname}`;
+    console.log('isOwnReview:', {
+      reviewName: review.personName,
+      fullName: fullName,
+      result: review.personName === fullName
+    });
+
+    return review.personName === fullName;
   }
 }

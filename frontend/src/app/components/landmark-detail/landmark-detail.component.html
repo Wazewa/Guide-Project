@@ -41,7 +41,38 @@
             <span class="review-author">{{ review.personName || 'Неизвестно' }}</span>
             <span class="review-date">{{ review.createdAt | date:'dd.MM.yyyy HH:mm' }}</span>
           </div>
-          <p class="review-text">{{ review.reviewText }}</p>
+
+          <!-- Режим редактирования -->
+          <div *ngIf="editingReviewId === review.id; else viewMode">
+            <mat-form-field appearance="fill" class="full-width">
+              <mat-label>Редактировать отзыв</mat-label>
+              <textarea
+                matInput
+                rows="3"
+                [(ngModel)]="editingReviewText"
+                placeholder="Измените отзыв..."></textarea>
+            </mat-form-field>
+            <div class="review-actions">
+              <button mat-button (click)="cancelEdit()">Отмена</button>
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="saveEdit()"
+                [disabled]="!editingReviewText || editingReviewText.trim().length < 30">
+                Сохранить
+              </button>
+            </div>
+          </div>
+
+          <!-- Режим просмотра -->
+          <ng-template #viewMode>
+            <p class="review-text">{{ review.reviewText }}</p>
+            <div *ngIf="isOwnReview(review)" class="review-actions">
+              <button mat-button color="primary" (click)="startEdit(review)">✏️</button>
+              <button mat-button color="warn" (click)="deleteReview(review.id)">🗑️</button>
+            </div>
+          </ng-template>
+
           <mat-divider></mat-divider>
         </div>
       </div>
@@ -76,6 +107,7 @@
     </mat-card>
   </ng-template>
 
+  <!-- Форма для отзыва (только для авторизованных) -->
   <mat-card *ngIf="user" class="review-form-card">
     <mat-card-header>
       <mat-card-title>Оставить отзыв</mat-card-title>
@@ -87,15 +119,24 @@
           matInput
           rows="4"
           [(ngModel)]="newReviewText"
-          placeholder="Поделитесь впечатлениями..."
-          class="review-textarea"></textarea>
+          placeholder="Поделитесь впечатлениями... (минимум 30 символов)"></textarea>
+
+        <!-- ✅ Подсказка всегда видна, но красная только если не хватает символов -->
+        <mat-hint [class.hint-error]="newReviewText && newReviewText.length < 30">
+          <span *ngIf="!newReviewText || newReviewText.length === 0">
+            Минимум 30 символов
+          </span>
+          <span *ngIf="newReviewText && newReviewText.length < 30">
+            * Минимум 30 символов (сейчас {{ newReviewText.length }})
+          </span>
+        </mat-hint>
       </mat-form-field>
       <div class="review-actions">
         <button
           mat-raised-button
           color="primary"
           (click)="submitReview()"
-          [disabled]="!newReviewText || newReviewText.trim().length < 3">
+          [disabled]="!newReviewText || newReviewText.trim().length < 30">
           Отправить отзыв
         </button>
       </div>

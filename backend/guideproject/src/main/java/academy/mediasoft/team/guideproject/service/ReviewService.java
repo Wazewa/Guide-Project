@@ -2,6 +2,7 @@ package academy.mediasoft.team.guideproject.service;
 
 import academy.mediasoft.team.guideproject.dto.ReviewDto;
 import academy.mediasoft.team.guideproject.dto.ReviewRequest;
+import academy.mediasoft.team.guideproject.dto.UpdateReviewRequest;
 import academy.mediasoft.team.guideproject.entity.Landmark;
 import academy.mediasoft.team.guideproject.entity.Person;
 import academy.mediasoft.team.guideproject.entity.Review;
@@ -14,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -66,31 +68,25 @@ public class ReviewService {
     }
 
     @Transactional
-    public ReviewDto updateReview(Long id, ReviewDto reviewDto) {
-
-        Review existingReview = reviewRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Отзыв не найден!")
-        );
+    public ReviewDto updateReview(Long id, UpdateReviewRequest request) {
+        Review existingReview = reviewRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Отзыв не найден!"));
 
         Person person = getPersonFromContext();
 
-        Landmark landmark = landmarkRepository.findById(reviewDto.landmarkId()).orElseThrow(
-                () -> new RuntimeException("Достопримечательность не найдена!")
-        );
-
-        if(!existingReview.getPerson().getId().equals(person.getId())) {
-            throw new RuntimeException("Нельзя написать отзыв от чужого имени!");
+        if (!existingReview.getPerson().getId().equals(person.getId())) {
+            throw new RuntimeException("Нельзя редактировать чужой отзыв!");
         }
 
-        Review review = Review.builder().
-                id(id).
-                reviewText(reviewDto.reviewText()).
-                person(person).
-                createdAt(existingReview.getCreatedAt()).
-                landmark(landmark).
-                build();
+        Review updatedReview = Review.builder()
+                .id(existingReview.getId())
+                .reviewText(request.reviewText())
+                .person(existingReview.getPerson())
+                .landmark(existingReview.getLandmark())
+                .createdAt(existingReview.getCreatedAt())
+                .build();
 
-        return toDto(reviewRepository.save(review));
+        return toDto(reviewRepository.save(updatedReview));
     }
 
     @Transactional

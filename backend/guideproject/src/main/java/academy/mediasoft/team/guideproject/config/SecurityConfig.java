@@ -42,11 +42,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/categories").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/categories/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/categories/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/reviews/**").hasRole("ADMIN")
+
                         .requestMatchers(HttpMethod.DELETE, "/api/ratings/**").hasRole("ADMIN")
 
                         .requestMatchers(HttpMethod.POST, "/api/reviews").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/reviews**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/reviews/**").authenticated()
 
                         .requestMatchers(HttpMethod.POST, "/api/ratings").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/ratings**").authenticated()

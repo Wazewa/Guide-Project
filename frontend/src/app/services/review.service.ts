@@ -8,6 +8,7 @@ export interface ReviewDto {
   createdAt: string;
   updatedAt: string;
   landmarkId: number;
+  personId: number;
   personName: string
 }
 
@@ -21,5 +22,13 @@ export class ReviewService {
 
   addReview(data: { reviewText: string; landmarkId: number }): Observable<ReviewDto> {
     return this.http.post<ReviewDto>('/api/reviews', data);
+  }
+
+  updateReview(id: number, data: { reviewText: string }): Observable<ReviewDto> {
+    return this.http.put<ReviewDto>(`/api/reviews/${id}`, data);
+  }
+
+  deleteReview(id: number): Observable<void> {
+    return this.http.delete<void>(`/api/reviews/${id}`);
   }
 }

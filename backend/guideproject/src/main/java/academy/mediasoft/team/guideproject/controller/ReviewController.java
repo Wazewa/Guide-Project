@@ -2,6 +2,7 @@ package academy.mediasoft.team.guideproject.controller;
 
 import academy.mediasoft.team.guideproject.dto.ReviewDto;
 import academy.mediasoft.team.guideproject.dto.ReviewRequest;
+import academy.mediasoft.team.guideproject.dto.UpdateReviewRequest;
 import academy.mediasoft.team.guideproject.service.ReviewService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -47,9 +48,9 @@ public class ReviewController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ReviewDto>  updateReview(@PathVariable Long id,
-                             @RequestBody @Valid ReviewDto reviewDto) {
+                             @RequestBody @Valid UpdateReviewRequest request) {
 
-        ReviewDto updatedReview = reviewService.updateReview(id, reviewDto);
+        ReviewDto updatedReview = reviewService.updateReview(id, request);
 
         return ResponseEntity.status(HttpStatus.OK).body(updatedReview);
     }

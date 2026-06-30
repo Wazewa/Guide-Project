@@ -14,6 +14,28 @@
   width: 100%;
 }
 
+.hint-error {
+  color: #ff5252 !important;
+  font-weight: 500;
+}
+
+.review-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.review-actions button {
+  min-width: 36px;
+  padding: 0 8px;
+  font-size: 14px;
+}
+
+.hint-success {
+  color: #4caf50 !important;
+  font-weight: 500;
+}
+
 mat-form-field {
   width: 100%;
 }
