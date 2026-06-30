@@ -78,7 +78,19 @@ cd ваш-проект
    spring.datasource.username=postgres
    spring.datasource.password=ваш_пароль
    ```
+### 4. Настройте переменные окружения для фронтенда
+Создайте файл `.env` в папке `frontend/`:
 
-
+### 5. Установите зависимости
+   Backend:
+   ```bash
+   cd backend
+   mvn clean install
+   ```
+   Frontend:
+   ```bash
+   cd frontend
+   npm install
+   ```
 
 
