@@ -60,3 +60,15 @@
 ```bash
 git clone https://github.com/ваш-проект.git
 cd ваш-проект
+### Настройте базу данных
+
+1. Создайте базу данных в PostgreSQL:
+   ```sql
+   CREATE DATABASE guide_db;
+2. Установите расширение PostGIS:
+   ```sql
+   CREATE EXTENSION IF NOT EXISTS postgis;
+
+
+
+
