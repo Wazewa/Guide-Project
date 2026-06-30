@@ -6,7 +6,7 @@
 
 ---
 
-## 📝 Описание проекта
+## Описание проекта
 
 **City Guide** — это веб-приложение-путеводитель, разработанное на стеке **Spring Boot + Angular**. Оно позволяет пользователям:
 
@@ -20,7 +20,7 @@
 
 ---
 
-## 🛠️ Технологический стек
+## Технологический стек
 
 ### Backend
 - **Java 21** (Records, Pattern Matching)
@@ -44,7 +44,7 @@
 
 ---
 
-## ⚙️ Подготовительные действия
+## Подготовительные действия
 
 ### 1. Установите необходимое ПО
 
@@ -60,14 +60,24 @@
 ```bash
 git clone https://github.com/ваш-проект.git
 cd ваш-проект
-### Настройте базу данных
+```
+
+### 3. Настройте базу данных
 
 1. Создайте базу данных в PostgreSQL:
    ```sql
    CREATE DATABASE guide_db;
+   ```
 2. Установите расширение PostGIS:
    ```sql
    CREATE EXTENSION IF NOT EXISTS postgis;
+   ```
+3. В файле `backend/src/main/resources/application.properties` укажите свои данные для подключения:
+   ```properties
+   spring.datasource.url=jdbc:postgresql://localhost:5432/guide_db
+   spring.datasource.username=postgres
+   spring.datasource.password=ваш_пароль
+   ```
 
 
 
