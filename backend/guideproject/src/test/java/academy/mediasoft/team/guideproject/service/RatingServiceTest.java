@@ -1,6 +1,7 @@
 package academy.mediasoft.team.guideproject.service;
 
 import academy.mediasoft.team.guideproject.dto.RatingDto;
+import academy.mediasoft.team.guideproject.dto.RatingRequest;
 import academy.mediasoft.team.guideproject.entity.Landmark;
 import academy.mediasoft.team.guideproject.entity.LandmarkCategory;
 import academy.mediasoft.team.guideproject.entity.Person;
@@ -49,6 +50,13 @@ public class RatingServiceTest {
         RatingDto ratingDto = initializeRatingDto();
         Rating rating = initializeRating(ratingDto, landmark, person);
 
+        RatingRequest request = new RatingRequest(
+                1L,
+                (double) 5,
+                LocalDateTime.now(),
+                1L
+        );
+
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         Mockito.when(authentication.getName()).thenReturn("wazewa@test.ru");
@@ -63,7 +71,7 @@ public class RatingServiceTest {
         Mockito.when(ratingRepository.save(Mockito.any(Rating.class)))
                 .thenReturn(rating);
 
-        RatingDto result = ratingService.addRating(ratingDto);
+        RatingDto result = ratingService.addRating(request);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(rating.getId(), result.id());
@@ -81,6 +89,13 @@ public class RatingServiceTest {
         Person person = initializePerson();
         RatingDto ratingDto = initializeRatingDto();
 
+        RatingRequest request = new RatingRequest(
+                1L,
+                (double) 5,
+                LocalDateTime.now(),
+                1L
+        );
+
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         Mockito.when(authentication.getName()).thenReturn("wazewa@test.ru");
@@ -92,7 +107,7 @@ public class RatingServiceTest {
                 .thenReturn(Optional.empty());
 
         Assertions.assertThrows(RuntimeException.class, () ->
-                ratingService.addRating(ratingDto));
+                ratingService.addRating(request));
 
         Mockito.verify(landmarkRepository).findById(ratingDto.landmarkId());
         Mockito.verify(ratingRepository, Mockito.never()).existsByPersonIdAndLandmarkId(person.getId(), ratingDto.landmarkId());
@@ -105,6 +120,13 @@ public class RatingServiceTest {
         LandmarkCategory landmarkCategory = initializeLandmarkCategory();
         Landmark landmark = initializeLandmark(landmarkCategory);
         RatingDto ratingDto = initializeRatingDto();
+
+        RatingRequest request = new RatingRequest(
+                1L,
+                (double) 5,
+                LocalDateTime.now(),
+                1L
+        );
 
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
@@ -119,7 +141,7 @@ public class RatingServiceTest {
                 .thenReturn(true);
 
         Assertions.assertThrows(RuntimeException.class, () ->
-                ratingService.addRating(ratingDto));
+                ratingService.addRating(request));
 
         Mockito.verify(landmarkRepository).findById(ratingDto.landmarkId());
         Mockito.verify(ratingRepository).existsByPersonIdAndLandmarkId(person.getId(), ratingDto.landmarkId());
@@ -135,6 +157,13 @@ public class RatingServiceTest {
         RatingDto ratingDto = initializeRatingDto();
         Rating rating = initializeRating(ratingDto, landmark, person);
 
+        RatingRequest request = new RatingRequest(
+                1L,
+                (double) 5,
+                LocalDateTime.now(),
+                1L
+        );
+
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         Mockito.when(authentication.getName()).thenReturn("wazewa@test.ru");
@@ -149,7 +178,7 @@ public class RatingServiceTest {
         Mockito.when(ratingRepository.save(Mockito.any(Rating.class)))
                 .thenReturn(rating);
 
-        RatingDto result = ratingService.updateRating(ratingId, ratingDto);
+        RatingDto result = ratingService.updateRating(ratingId, request);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(rating.getId(), result.id());
@@ -167,11 +196,18 @@ public class RatingServiceTest {
         Long ratingId = 1L;
         RatingDto ratingDto = initializeRatingDto();
 
+        RatingRequest request = new RatingRequest(
+                1L,
+                (double) 5,
+                LocalDateTime.now(),
+                1L
+        );
+
         Mockito.when(ratingRepository.findById(ratingId))
                 .thenReturn(Optional.empty());
 
         Assertions.assertThrows(RuntimeException.class, () ->
-                ratingService.updateRating(ratingId, ratingDto));
+                ratingService.updateRating(ratingId, request));
 
         Mockito.verify(ratingRepository).findById(ratingId);
         Mockito.verify(landmarkRepository, Mockito.never()).findById(ratingDto.landmarkId());
@@ -187,6 +223,13 @@ public class RatingServiceTest {
         RatingDto ratingDto = initializeRatingDto();
         Rating rating = initializeRating(ratingDto, landmark, person);
 
+        RatingRequest request = new RatingRequest(
+                1L,
+                (double) 5,
+                LocalDateTime.now(),
+                1L
+        );
+
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         Mockito.when(authentication.getName()).thenReturn("wazewa@test.ru");
@@ -200,7 +243,7 @@ public class RatingServiceTest {
                 .thenReturn(Optional.empty());
 
         Assertions.assertThrows(RuntimeException.class, () ->
-                ratingService.updateRating(ratingId, ratingDto));
+                ratingService.updateRating(ratingId, request));
 
         Mockito.verify(ratingRepository).findById(ratingId);
         Mockito.verify(landmarkRepository).findById(ratingDto.landmarkId());
@@ -246,9 +289,10 @@ public class RatingServiceTest {
     private RatingDto initializeRatingDto() {
         return new RatingDto(
                 1L,
-                5,
+                (double) 5,
                 LocalDateTime.now(),
-                1L
+                1L,
+                15L
         );
     }
 

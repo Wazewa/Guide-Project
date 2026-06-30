@@ -268,7 +268,7 @@ public class ReviewServiceTest {
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 1L,
-        15L
+        "Павел Симонов"
         );
     }
 

@@ -9,7 +9,10 @@ import { LandmarkService, LandmarkDto } from '../../services/landmark.service';
 import { CategoryService } from '../../services/category.service';
 import { ReviewService, ReviewDto } from '../../services/review.service';
 import { RatingService, RatingDto } from '../../services/rating.service';
+import { AuthService, UserDto } from '../../services/auth.service';
 import { PersonService, PersonDto } from '../../services/person.service';
+import { NotificationService } from '../../services/notification.service';
+import { StarRatingComponent } from '../../components/star-rating/star-rating.component';
 
 @Component({
   selector: 'app-landmark-detail',
@@ -20,6 +23,7 @@ import { PersonService, PersonDto } from '../../services/person.service';
     MatCardModule,
     MatButtonModule,
     MatDividerModule,
+    StarRatingComponent,
     MatListModule
   ],
   templateUrl: './landmark-detail.component.html',
@@ -65,6 +69,8 @@ import { PersonService, PersonDto } from '../../services/person.service';
 })
 export class LandmarkDetailComponent implements OnInit {
   landmark: LandmarkDto | null = null;
+  user: UserDto | null = null;
+  newRating: number = 0;
   categoryName: string = '';
   reviews: ReviewDto[] = [];
   ratings: RatingDto[] = [];
@@ -77,21 +83,31 @@ export class LandmarkDetailComponent implements OnInit {
     private categoryService: CategoryService,
     private reviewService: ReviewService,
     private ratingService: RatingService,
-    private personService: PersonService
+    private authService: AuthService,
+    private personService: PersonService,
+    private notificationService: NotificationService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.authService.currentUser$.subscribe({
+      next: (user) => {
+        this.user = user;
+        console.log('👤 Текущий пользователь:', user);
+      },
+      error: (err) => console.error('Ошибка получения пользователя:', err)
+    });
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       const landmarkId = Number(id);
       this.loadLandmark(landmarkId);
       this.loadReviews(landmarkId);
       this.loadRatings(landmarkId);
-      this.loadAllUsers();  // ✅ загружаем пользователей
+      this.loadAllUsers();
     }
   }
 
-  private loadLandmark(id: number) {
+  private loadLandmark(id: number): void {
     this.landmarkService.getById(id).subscribe({
       next: (data) => {
         this.landmark = data;
@@ -105,7 +121,7 @@ export class LandmarkDetailComponent implements OnInit {
     });
   }
 
-  private loadReviews(landmarkId: number) {
+  private loadReviews(landmarkId: number): void {
     this.reviewService.getByLandmarkId(landmarkId).subscribe({
       next: (data) => {
         this.reviews = data;
@@ -115,9 +131,10 @@ export class LandmarkDetailComponent implements OnInit {
     });
   }
 
-  private loadRatings(landmarkId: number) {
+  private loadRatings(landmarkId: number): void {
     this.ratingService.getByLandmarkId(landmarkId).subscribe({
       next: (data) => {
+        this.ratings = data;
         const total = data.reduce((sum, r) => sum + r.grade, 0);
         this.averageRating = data.length > 0 ? total / data.length : 0;
         console.log('Средняя оценка:', this.averageRating);
@@ -130,9 +147,9 @@ export class LandmarkDetailComponent implements OnInit {
     this.personService.getAll().subscribe({
       next: (users: PersonDto[]) => {
         users.forEach(user => this.users.set(user.id, user.name));
-        console.log('✅ Пользователи загружены:', this.users);
+        console.log('Пользователи загружены:', this.users);
       },
-      error: (err) => console.error('❌ Ошибка загрузки пользователей:', err)
+      error: (err) => console.error('Ошибка загрузки пользователей:', err)
     });
   }
 
@@ -144,5 +161,43 @@ export class LandmarkDetailComponent implements OnInit {
     const full = Math.floor(rating);
     const empty = 5 - full;
     return '⭐'.repeat(full) + '☆'.repeat(empty);
+  }
+
+  hasUserRated(): boolean {
+    if (!this.user || !this.ratings.length) return false;
+    return this.ratings.some(r => r.personId === this.user!.id);
+  }
+
+  submitRating(): void {
+    if (!this.landmark || this.newRating === 0) {
+      return;
+    }
+
+    if (!this.user) {
+      this.notificationService.error('Войдите в систему, чтобы оценить место');
+      return;
+    }
+
+    if (this.hasUserRated()) {
+      this.notificationService.error('Вы уже оценили это место!');
+      return;
+    }
+
+    this.ratingService.addRating({
+      grade: this.newRating,
+      landmarkId: this.landmark.id
+    }).subscribe({
+      next: () => {
+        this.notificationService.success('Оценка поставлена!');
+        this.newRating = 0;
+        this.loadRatings(this.landmark!.id);
+      },
+      error: (err) => {
+        console.error('Ошибка:', err);
+        if (err.status === 400) {
+          this.notificationService.error('Вы уже оценили это место!');
+        }
+      }
+    });
   }
 }

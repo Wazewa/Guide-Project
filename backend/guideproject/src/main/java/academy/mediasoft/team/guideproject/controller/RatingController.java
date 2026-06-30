@@ -1,6 +1,7 @@
 package academy.mediasoft.team.guideproject.controller;
 
 import academy.mediasoft.team.guideproject.dto.RatingDto;
+import academy.mediasoft.team.guideproject.dto.RatingRequest;
 import academy.mediasoft.team.guideproject.service.RatingService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -37,18 +38,18 @@ public class RatingController {
     }
 
     @PostMapping
-    public ResponseEntity<RatingDto> addRating(@RequestBody @Valid RatingDto ratingDto) {
+    public ResponseEntity<RatingDto> addRating(@RequestBody @Valid RatingRequest request) {
 
-        RatingDto createdRating = ratingService.addRating(ratingDto);
+        RatingDto createdRating = ratingService.addRating(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRating);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<RatingDto> updateRating(@PathVariable Long id,
-                                                   @RequestBody @Valid RatingDto ratingDto) {
+                                                   @RequestBody @Valid RatingRequest request) {
 
-        RatingDto updatedRating = ratingService.updateRating(id, ratingDto);
+        RatingDto updatedRating = ratingService.updateRating(id, request);
 
         return ResponseEntity.status(HttpStatus.OK).body(updatedRating);
     }

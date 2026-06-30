@@ -71,3 +71,13 @@ a {
 a:hover {
   color: #f9a825 !important;
 }
+
+.custom-snackbar {
+  margin-top: 80px !important;
+  .mat-mdc-snack-bar-container {
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+}
+

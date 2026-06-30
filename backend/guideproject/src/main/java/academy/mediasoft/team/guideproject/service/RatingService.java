@@ -1,6 +1,7 @@
 package academy.mediasoft.team.guideproject.service;
 
 import academy.mediasoft.team.guideproject.dto.RatingDto;
+import academy.mediasoft.team.guideproject.dto.RatingRequest;
 import academy.mediasoft.team.guideproject.entity.Landmark;
 import academy.mediasoft.team.guideproject.entity.Person;
 import academy.mediasoft.team.guideproject.entity.Rating;
@@ -44,20 +45,20 @@ public class RatingService {
     }
 
     @Transactional
-    public RatingDto addRating(RatingDto ratingDto) {
+    public RatingDto addRating(RatingRequest request) {
 
         Person person = getPersonFromContext();
 
-        Landmark landmark = landmarkRepository.findById(ratingDto.landmarkId()).orElseThrow(
+        Landmark landmark = landmarkRepository.findById(request.landmarkId()).orElseThrow(
                 () -> new RuntimeException("Достопримечательность не найдена!")
         );
 
-        if(ratingRepository.existsByPersonIdAndLandmarkId(person.getId(), ratingDto.landmarkId())) {
+        if(ratingRepository.existsByPersonIdAndLandmarkId(person.getId(), request.landmarkId())) {
             throw new RuntimeException("Оценка уже есть!");
         }
 
         Rating rating = Rating.builder().
-                grade(ratingDto.grade()).
+                grade(request.grade()).
                 person(person).
                 landmark(landmark).
                 build();
@@ -66,7 +67,7 @@ public class RatingService {
     }
 
     @Transactional
-    public RatingDto updateRating(Long id, RatingDto ratingDto) {
+    public RatingDto updateRating(Long id, RatingRequest request) {
 
         Rating existingRating = ratingRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Оценка не найдена!")
@@ -74,7 +75,7 @@ public class RatingService {
 
         Person person = getPersonFromContext();
 
-        Landmark landmark = landmarkRepository.findById(ratingDto.landmarkId()).orElseThrow(
+        Landmark landmark = landmarkRepository.findById(request.landmarkId()).orElseThrow(
                 () -> new RuntimeException("Достопримечательность не найдена!")
         );
 
@@ -84,7 +85,7 @@ public class RatingService {
 
         Rating rating = Rating.builder().
                 id(id).
-                grade(ratingDto.grade()).
+                grade(request.grade()).
                 createdAt(existingRating.getCreatedAt()).
                 person(person).
                 landmark(landmark).
@@ -117,7 +118,8 @@ public class RatingService {
                 rating.getId(),
                 rating.getGrade(),
                 rating.getCreatedAt(),
-                rating.getLandmark().getId()
+                rating.getLandmark().getId(),
+                rating.getPerson().getId()
         );
     }
 

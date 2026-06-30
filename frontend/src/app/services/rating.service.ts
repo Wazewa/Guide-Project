@@ -7,6 +7,7 @@ export interface RatingDto {
   grade: number;
   createdAt: string;
   landmarkId: number;
+  personId: number;
 }
 
 @Injectable({ providedIn: 'root' })

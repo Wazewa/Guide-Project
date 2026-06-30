@@ -6,13 +6,12 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-public record RatingDto(
+public record RatingRequest(
         Long id,
         @Min(1)
         @Max(5)
         @NotNull(message = "Оценка должна быть поставлена")
         Double grade,
         LocalDateTime createdAt,
-        Long landmarkId,
-        Long personId
-) { }
+        Long landmarkId)
+{}
