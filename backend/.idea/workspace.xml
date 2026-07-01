@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0db70a2c-e450-410f-9553-7bee6919ce8f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guideproject/src/test/java/academy/mediasoft/team/guideproject/service/PersonServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/test/java/academy/mediasoft/team/guideproject/service/PersonServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guideproject/src/test/java/academy/mediasoft/team/guideproject/service/ReviewServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/guideproject/src/test/java/academy/mediasoft/team/guideproject/service/ReviewServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app.component.scss" afterDir="false" />
-    </list>
+    <list default="true" id="0db70a2c-e450-410f-9553-7bee6919ce8f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -88,7 +83,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.service in guideproject">
+  <component name="RunManager" selected="Spring Boot.GuideprojectApplication">
     <configuration name="RatingServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="guideproject" />
       <extension name="coverage">
@@ -206,7 +201,7 @@
       <workItem from="1782806835516" duration="9029000" />
       <workItem from="1782900127535" duration="1855000" />
       <workItem from="1782903358212" duration="2970000" />
-      <workItem from="1782908009724" duration="667000" />
+      <workItem from="1782908009724" duration="1379000" />
     </task>
     <servers />
   </component>
@@ -224,7 +219,7 @@
     <SUITE FILE_PATH="coverage/backend$RatingServiceTest.ic" NAME="RatingServiceTest Coverage Results" MODIFIED="1782668838536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>academy.mediasoft.team.guideproject.service.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$service_in_guideproject.ic" NAME="service in guideproject Coverage Results" MODIFIED="1782908555163" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/backend$service_in_guideproject.ic" NAME="service in guideproject Coverage Results" MODIFIED="1782908729450" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/backend$PersonServiceTest.ic" NAME="PersonServiceTest Coverage Results" MODIFIED="1782660980534" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>academy.mediasoft.team.guideproject.service.*</FILTER>
     </SUITE>
