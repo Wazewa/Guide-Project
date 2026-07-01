@@ -2,6 +2,7 @@ package academy.mediasoft.team.guideproject.service;
 
 import academy.mediasoft.team.guideproject.dto.ReviewDto;
 import academy.mediasoft.team.guideproject.dto.ReviewRequest;
+import academy.mediasoft.team.guideproject.dto.UpdateReviewRequest;
 import academy.mediasoft.team.guideproject.entity.Landmark;
 import academy.mediasoft.team.guideproject.entity.LandmarkCategory;
 import academy.mediasoft.team.guideproject.entity.Person;
@@ -153,6 +154,8 @@ public class ReviewServiceTest {
         ReviewDto reviewDto = initializeReviewDto();
         Review review = initializeReview(reviewDto, landmark, person);
 
+        UpdateReviewRequest request = new UpdateReviewRequest("Все прекрасно");
+
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         Mockito.when(authentication.getName()).thenReturn("wazewa@test.ru");
@@ -162,12 +165,10 @@ public class ReviewServiceTest {
                 .thenReturn(Optional.of(person));
         Mockito.when(reviewRepository.findById(reviewId))
                 .thenReturn(Optional.of(review));
-        Mockito.when(landmarkRepository.findById(reviewDto.landmarkId()))
-                .thenReturn(Optional.of(landmark));
         Mockito.when(reviewRepository.save(Mockito.any(Review.class)))
                 .thenReturn(review);
 
-        ReviewDto result = reviewService.updateReview(reviewId, reviewDto);
+        ReviewDto result = reviewService.updateReview(reviewId, request);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(review.getId(), result.id());
@@ -176,7 +177,6 @@ public class ReviewServiceTest {
         Assertions.assertEquals(review.getLandmark().getId(), result.landmarkId());
 
         Mockito.verify(reviewRepository).findById(reviewId);
-        Mockito.verify(landmarkRepository).findById(reviewDto.landmarkId());
         Mockito.verify(reviewRepository).save(Mockito.any(Review.class));
     }
 
@@ -185,43 +185,16 @@ public class ReviewServiceTest {
         Long reviewId = 1L;
         ReviewDto reviewDto = initializeReviewDto();
 
+        UpdateReviewRequest request = new UpdateReviewRequest("Все прекрасно");
+
         Mockito.when(reviewRepository.findById(reviewId))
                 .thenReturn(Optional.empty());
 
         Assertions.assertThrows(RuntimeException.class, () ->
-                reviewService.updateReview(reviewId, reviewDto));
+                reviewService.updateReview(reviewId, request));
 
         Mockito.verify(reviewRepository).findById(reviewId);
         Mockito.verify(landmarkRepository, Mockito.never()).findById(reviewDto.landmarkId());
-        Mockito.verify(reviewRepository, Mockito.never()).save(Mockito.any(Review.class));
-    }
-
-    @Test
-    public void updateReview_notLandmark_throwException() {
-        Long reviewId = 1L;
-        Person person = initializePerson();
-        LandmarkCategory landmarkCategory = initializeLandmarkCategory();
-        Landmark landmark = initializeLandmark(landmarkCategory);
-        ReviewDto reviewDto = initializeReviewDto();
-        Review review = initializeReview(reviewDto, landmark, person);
-
-        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
-        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
-        Mockito.when(authentication.getName()).thenReturn("wazewa@test.ru");
-        SecurityContextHolder.setContext(securityContext);
-
-        Mockito.when(personRepository.findByEmail("wazewa@test.ru"))
-                .thenReturn(Optional.of(person));
-        Mockito.when(reviewRepository.findById(reviewId))
-                .thenReturn(Optional.of(review));
-        Mockito.when(landmarkRepository.findById(reviewDto.landmarkId()))
-                .thenReturn(Optional.empty());
-
-        Assertions.assertThrows(RuntimeException.class, () ->
-                reviewService.updateReview(reviewId, reviewDto));
-
-        Mockito.verify(reviewRepository).findById(reviewId);
-        Mockito.verify(landmarkRepository).findById(reviewDto.landmarkId());
         Mockito.verify(reviewRepository, Mockito.never()).save(Mockito.any(Review.class));
     }
 
@@ -267,7 +240,7 @@ public class ReviewServiceTest {
                 "Все прекрасно",
                 LocalDateTime.now(),
                 LocalDateTime.now(),
-                1L,
+                15L,
         "Павел Симонов"
         );
     }

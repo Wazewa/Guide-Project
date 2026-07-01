@@ -50,7 +50,6 @@ public class PersonServiceTest {
         Assertions.assertEquals(person.getSurname(), result.surname());
         Assertions.assertEquals(person.getEmail(), result.email());
         Assertions.assertEquals(hashPassword, person.getHashPassword());
-        Assertions.assertEquals(person.getRole(), result.role());
 
         Mockito.verify(personRepository).existsByEmail(registerDto.email());
         Mockito.verify(passwordEncoder).encode(registerDto.password());
@@ -100,7 +99,6 @@ public class PersonServiceTest {
         Assertions.assertEquals(person.getSurname(), result.surname());
         Assertions.assertEquals(person.getEmail(), result.email());
         Assertions.assertEquals(hashPassword, person.getHashPassword());
-        Assertions.assertEquals(person.getRole(), result.role());
 
         Mockito.verify(personRepository).findById(personId);
         Mockito.verify(personRepository).save(Mockito.any(Person.class));
@@ -157,8 +155,7 @@ public class PersonServiceTest {
                 15L,
                 registerDto.name(),
                         registerDto.surname(),
-                        registerDto.email(),
-                registerDto.role()
+                        registerDto.email()
         );
     }
 
@@ -167,8 +164,7 @@ public class PersonServiceTest {
                 "Иван",
                 "Королев",
                 "wazewa@test.ru",
-                password,
-                "USER"
+                password
         );
     }
 
