@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { LandmarkService, LandmarkDto } from '../../services/landmark.service';
 import { CategoryService } from '../../services/category.service';
 
@@ -12,15 +14,19 @@ import { CategoryService } from '../../services/category.service';
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
   templateUrl: './landmark-list.component.html',
   styleUrls: ['./landmark-list.component.scss']
 })
 export class LandmarkListComponent implements OnInit {
   landmarks: LandmarkDto[] = [];
+  filteredLandmarks: LandmarkDto[] = [];
   categoryMap: Map<number, string> = new Map();
+  searchQuery: string = '';
 
   constructor(
     private landmarkService: LandmarkService,
@@ -31,7 +37,6 @@ export class LandmarkListComponent implements OnInit {
     this.categoryService.getMap().subscribe({
       next: (map) => {
         this.categoryMap = map;
-        console.log('Категории загружены:', map);
       },
       error: (err) => console.error('Ошибка загрузки категорий:', err)
     });
@@ -39,10 +44,28 @@ export class LandmarkListComponent implements OnInit {
     this.landmarkService.getAll().subscribe({
       next: (data) => {
         this.landmarks = data;
-        console.log('Достопримечательности загружены:', data);
+        this.filteredLandmarks = data;
       },
       error: (err) => console.error('Ошибка загрузки достопримечательностей:', err)
     });
+  }
+
+  applyFilters(): void {
+    let result = [...this.landmarks];
+
+    if (this.searchQuery.trim()) {
+      const query = this.searchQuery.toLowerCase().trim();
+      result = result.filter(l =>
+        l.name.toLowerCase().includes(query)
+      );
+    }
+
+    this.filteredLandmarks = result;
+  }
+
+  clearSearch(): void {
+    this.searchQuery = '';
+    this.applyFilters();
   }
 
   getCategoryName(id: number): string {

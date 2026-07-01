@@ -1,5 +1,25 @@
+<div class="search-container">
+  <div class="search-wrapper">
+    <mat-icon class="search-icon">search</mat-icon>
+    <input
+      class="search-input"
+      type="text"
+      [(ngModel)]="searchQuery"
+      (input)="applyFilters()"
+      placeholder="Поиск по названию..."
+    >
+    <button class="search-clear" *ngIf="searchQuery" (click)="clearSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="result-count" *ngIf="landmarks.length > 0">
+    {{ filteredLandmarks.length }} из {{ landmarks.length }}
+  </div>
+</div>
+
 <div class="landmark-grid">
-  <mat-card *ngFor="let landmark of landmarks" class="landmark-card">
+  <mat-card *ngFor="let landmark of filteredLandmarks" class="landmark-card">
     <mat-card-title>{{ landmark.name }}</mat-card-title>
     <mat-card-subtitle>{{ getCategoryName(landmark.landmarkCategoryId) }}</mat-card-subtitle>
     <mat-card-content>
@@ -7,8 +27,8 @@
       <p>
         <strong>Средняя оценка:</strong>
         <span *ngIf="landmark.averageRating > 0; else noRating">
-    {{ landmark.averageRating | number:'1.1-1' }} {{ getStars(landmark.averageRating) }}
-           </span>
+          {{ landmark.averageRating | number:'1.1-1' }} {{ getStars(landmark.averageRating) }}
+        </span>
         <ng-template #noRating>Нет оценок</ng-template>
       </p>
     </mat-card-content>
@@ -16,4 +36,9 @@
       <button mat-button [routerLink]="['/landmarks', landmark.id]">Подробнее</button>
     </mat-card-actions>
   </mat-card>
+</div>
+
+<div class="empty-state" *ngIf="filteredLandmarks.length === 0 && landmarks.length > 0">
+  <mat-icon>search_off</mat-icon>
+  <p>Ничего не найдено по запросу "{{ searchQuery }}"</p>
 </div>
